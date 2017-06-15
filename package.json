@@ -1,0 +1,40 @@
+{
+  "name": "router-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "tslint": "tslint \"*.ts\" \"vue/*.ts\"",
+    "clean": "rimraf dist",
+    "webpack": "webpack --config webpack.config.js",
+    "rev-static": "rev-static --config rev-static.config.js",
+    "clean-rev": "rimraf **/index.min-*.js",
+    "build": "npm run clean-rev && npm run clean && npm run tsc && npm run webpack && npm run rev-static",
+    "lint": "npm run tslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plantain-00/router-demo.git"
+  },
+  "author": "York Yao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plantain-00/router-demo/issues"
+  },
+  "homepage": "https://github.com/plantain-00/router-demo#readme",
+  "devDependencies": {
+    "rev-static": "2.4.2",
+    "rimraf": "2.6.1",
+    "tslint": "5.4.3",
+    "typescript": "2.4.0",
+    "vue": "2.3.4",
+    "vue-class-component": "5.0.1",
+    "vue-router": "2.5.3",
+    "vuex": "2.3.1",
+    "webpack": "2.6.1"
+  },
+  "dependencies": {
+    "tslib": "1.7.1"
+  }
+}
