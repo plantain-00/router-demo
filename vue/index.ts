@@ -7,10 +7,14 @@ Vue.use(VueRouter);
 
 @Component({
     template: `
-    <div>blogs</div>
-    <ul v-for="blog in blogs">
-        <li><router-link to="/vue/blogs/{{blog.id}}">to /vue/blogs/{{blog.id}}</router-link></li>
-    </ul>
+    <div>
+        <div>blogs</div>
+        <ul>
+            <li v-for="blog in blogs">
+                <router-link :to="'/vue/blogs/' + blog.id">to /vue/blogs/{{blog.id}}</router-link>
+            </li>
+        </ul>
+    </div>
     `,
 })
 class Blogs extends Vue {
@@ -19,7 +23,7 @@ class Blogs extends Vue {
 
 @Component({
     template: `
-    <div>blog</div>
+    <div>blog {{$route.params.blog_id}}</div>
     `,
 })
 class Blog extends Vue {
