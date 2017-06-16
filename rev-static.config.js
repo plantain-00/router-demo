@@ -1,7 +1,11 @@
 module.exports = {
     inputFiles: [
-        "**/index.min.js",
-        "**/index.ejs.html",
+        // "**/index.min.js",
+        // "**/index.ejs.html",
+        "vue/index.min.js",
+        "vue/index.ejs.html",
+        "react/index.min.js",
+        "react/index.ejs.html",
     ],
     outputFiles: file => file.replace(".ejs", ""),
     ejsOptions: {

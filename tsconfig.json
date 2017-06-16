@@ -12,5 +12,9 @@
         "jsx": "react",
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true
-    }
+    },
+    "include": [
+        "vue/*",
+        "react/*"
+    ]
 }
