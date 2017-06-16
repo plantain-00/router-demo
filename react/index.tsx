@@ -1,17 +1,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link, RouteComponentProps } from "react-router-dom";
-// import { observable } from "mobx";
-// import { observer } from "mobx-react";
+import { observable } from "mobx";
+import { observer } from "mobx-react";
 import * as common from "../common";
 
-// class AppState {
-//     @observable
-//     blogs = common.blogs;
-// }
-// const appState = new AppState();
+class AppState {
+    @observable
+    blogs = common.blogs;
+}
+const appState = new AppState();
 
-// @observer
 class Home extends React.Component<RouteComponentProps<{}>, {}> {
     blogs = common.blogs;
 
@@ -27,7 +26,6 @@ class Home extends React.Component<RouteComponentProps<{}>, {}> {
     }
 }
 
-// @observer
 class Blog extends React.Component<RouteComponentProps<{ blog_id: string }>, {}> {
     blog: common.Blog;
 
@@ -62,7 +60,6 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }>, {}>
     }
 }
 
-// @observer
 class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }>, {}> {
     post: common.Post;
     blog: common.Blog;
@@ -95,8 +92,8 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
     }
 }
 
-// @observer
-class Main extends React.Component<{}, {}> {
+@observer
+class Main extends React.Component<{ appState: AppState }, {}> {
     render() {
         return (
             <Router>
@@ -113,4 +110,4 @@ class Main extends React.Component<{}, {}> {
     }
 }
 
-ReactDOM.render(<Main />, document.getElementById("container"));
+ReactDOM.render(<Main appState={appState} />, document.getElementById("container"));
