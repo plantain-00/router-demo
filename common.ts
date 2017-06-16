@@ -47,3 +47,5 @@ export const blogs: Blog[] = [
         ],
     },
 ];
+
+export const maxPostId = 23;

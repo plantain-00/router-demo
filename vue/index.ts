@@ -10,6 +10,21 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         blogs: common.blogs,
+        maxPostId: common.maxPostId,
+    },
+    mutations: {
+        addPost(state, payload: { blogId: number, postContent: string }) {
+            for (const blog of state.blogs) {
+                if (blog.id === payload.blogId) {
+                    state.maxPostId++;
+                    blog.posts.push({
+                        id: state.maxPostId,
+                        content: payload.postContent,
+                    });
+                    return;
+                }
+            }
+        },
     },
 });
 
@@ -42,10 +57,14 @@ class Home extends Vue {
                 <router-link :to="'/vue/blogs/' + blog.id + '/posts/' + post.id">to /vue/blogs/{{blog.id}}/posts/{{post.id}}</router-link>
             </li>
         </ul>
+        <input v-model="newPostContent" />
+        <button v-if="newPostContent" @click="addNewPost()">add new post</button>
     </div>
     `,
 })
 class Blog extends Vue {
+    newPostContent = "";
+
     get blog() {
         const blogId = +this.$route.params.blog_id;
         const blogs: common.Blog[] = this.$store.state.blogs;
@@ -55,6 +74,12 @@ class Blog extends Vue {
             }
         }
         return null;
+    }
+
+    addNewPost() {
+        if (this.blog) {
+            this.$store.commit("addPost", { blogId: this.blog.id, postContent: this.newPostContent });
+        }
     }
 }
 

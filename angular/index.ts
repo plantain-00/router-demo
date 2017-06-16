@@ -38,11 +38,14 @@ class HomeComponent {
                 <a [routerLink]="'/angular/blogs/' + blog.id + '/posts/' + post.id">to /angular/blogs/{{blog.id}}/posts/{{post.id}}</a>
             </li>
         </ul>
+        <input v-model="newPostContent" />
+        <button v-if="newPostContent" @click="addNewPost()">add new post</button>
     </div>
     `,
 })
 class BlogComponent extends angular {
     blog: common.Blog;
+    newPostContent = "";
 
     beforeMount() {
         const blogId = +this.$route.params.blog_id;
@@ -51,6 +54,12 @@ class BlogComponent extends angular {
                 this.blog = blog;
                 break;
             }
+        }
+    }
+
+    addNewPost() {
+        if (this.blog) {
+            this.$store.commit("addPost", { blogId: this.blog.id, postContent: this.newPostContent });
         }
     }
 }
