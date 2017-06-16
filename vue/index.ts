@@ -1,9 +1,17 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import Component from "vue-class-component";
 import VueRouter from "vue-router";
+import Vuex from "vuex";
 import * as common from "../common";
 
 Vue.use(VueRouter);
+Vue.use(Vuex);
+
+const store = new Vuex.Store({
+    state: {
+        blogs: common.blogs,
+    },
+});
 
 @Component({
     template: `
@@ -18,7 +26,9 @@ Vue.use(VueRouter);
     `,
 })
 class Home extends Vue {
-    blogs = common.blogs;
+    get blogs() {
+        return this.$store.state.blogs;
+    }
 }
 
 @Component({
@@ -36,16 +46,15 @@ class Home extends Vue {
     `,
 })
 class Blog extends Vue {
-    blog: common.Blog;
-
-    beforeMount() {
+    get blog() {
         const blogId = +this.$route.params.blog_id;
-        for (const blog of common.blogs) {
+        const blogs: common.Blog[] = this.$store.state.blogs;
+        for (const blog of blogs) {
             if (blog.id === blogId) {
-                this.blog = blog;
-                break;
+                return blog;
             }
         }
+        return null;
     }
 }
 
@@ -59,24 +68,26 @@ class Blog extends Vue {
     `,
 })
 class Post extends Vue {
-    post: common.Post;
-    blog: common.Blog;
-
-    beforeMount() {
+    get blog() {
         const blogId = +this.$route.params.blog_id;
-        const postId = +this.$route.params.post_id;
-        for (const blog of common.blogs) {
+        const blogs: common.Blog[] = this.$store.state.blogs;
+        for (const blog of blogs) {
             if (blog.id === blogId) {
-                this.blog = blog;
-                for (const post of blog.posts) {
-                    if (post.id === postId) {
-                        this.post = post;
-                        break;
-                    }
-                }
-                break;
+                return blog;
             }
         }
+        return null;
+    }
+    get post() {
+        const postId = +this.$route.params.post_id;
+        if (this.blog) {
+            for (const post of this.blog.posts) {
+                if (post.id === postId) {
+                    return post;
+                }
+            }
+        }
+        return null;
     }
 }
 
@@ -103,4 +114,4 @@ class App extends Vue {
 }
 
 // tslint:disable-next-line:no-unused-expression
-new App({ router }).$mount("#container");
+new App({ router, store }).$mount("#container");
