@@ -5,7 +5,6 @@ module.exports = {
     entry: {
         vue: "./vue/index",
         react: "./react/index",
-        // angular: "./react/angular",
     },
     output: {
         filename: "[name]/index.min.js"
