@@ -11,7 +11,9 @@
     "rev-static": "rev-static --config rev-static.config.js",
     "clean-rev": "rimraf **/index.min-*.js",
     "build": "npm run clean-rev && npm run clean && npm run tsc && npm run webpack && npm run rev-static",
-    "lint": "npm run tslint"
+    "lint": "npm run tslint && npm run standard",
+    "standard": "standard \"**/*.config.js\"",
+    "fix": "standard --fix \"**/*.config.js\""
   },
   "repository": {
     "type": "git",
@@ -43,6 +45,7 @@
     "rev-static": "2.4.2",
     "rimraf": "2.6.1",
     "rxjs": "5.4.1",
+    "standard": "10.0.2",
     "tslint": "5.4.3",
     "typescript": "2.4.0",
     "vue": "2.3.4",
