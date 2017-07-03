@@ -57,12 +57,15 @@ typings/
 # dotenv environment variables file
 .env
 
-
 # Source
 .vscode
 dist
-**/**/*.js
-**/**/*.css
+**/*.js
+**/*.css
 !*.config.js
 !**/*-*.js
 !**/*-*.css
+service-worker.js
+!*.index.bundle.js
+#**/*-*.png
+#index.html

@@ -13,7 +13,8 @@
     "build": "npm run clean-rev && npm run clean && npm run tsc && npm run webpack && npm run rev-static",
     "lint": "npm run tslint && npm run standard",
     "standard": "standard \"**/*.config.js\"",
-    "fix": "standard --fix \"**/*.config.js\""
+    "fix": "standard --fix \"**/*.config.js\"",
+    "test": "tsc -p spec && karma start spec/karma.config.js"
   },
   "repository": {
     "type": "git",
@@ -33,10 +34,17 @@
     "@angular/platform-browser": "4.2.5",
     "@angular/platform-browser-dynamic": "4.2.5",
     "@angular/router": "4.2.5",
+    "@types/jasmine": "2.5.53",
     "@types/react": "15.0.34",
     "@types/react-dom": "15.5.1",
     "@types/react-router-dom": "4.0.5",
     "core-js": "2.4.1",
+    "jasmine": "2.6.0",
+    "karma": "1.7.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-firefox-launcher": "1.0.1",
+    "karma-jasmine": "1.1.0",
+    "karma-webpack": "2.0.3",
     "mobx": "3.1.16",
     "mobx-react": "4.2.2",
     "react": "15.6.1",
