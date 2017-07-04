@@ -1,6 +1,7 @@
 module.exports = {
   inputFiles: [
-    '**/index.min.js',
+    'vue/index.min.js',
+    'react/index.min.js',
     '**/index.ejs.html'
   ],
   outputFiles: file => file.replace('.ejs', ''),
@@ -8,5 +9,6 @@ module.exports = {
     rmWhitespace: true
   },
   sha: 256,
-  customNewFileName: (filePath, fileString, md5String, baseName, extensionName) => baseName + '-' + md5String + extensionName
+  customNewFileName: (filePath, fileString, md5String, baseName, extensionName) => baseName + '-' + md5String + extensionName,
+  fileSize: 'file-size.json'
 }
