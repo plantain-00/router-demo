@@ -4,17 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
-    "tslint": "tslint \"*.ts\" \"vue/*.ts\"",
-    "clean": "rimraf dist",
-    "webpack": "webpack --config webpack.config.js",
-    "rev-static": "rev-static --config rev-static.config.js",
-    "clean-rev": "rimraf **/index.min-*.js",
-    "build": "npm run clean-rev && npm run clean && npm run tsc && npm run webpack && npm run rev-static",
-    "lint": "npm run tslint && npm run standard",
-    "standard": "standard \"**/*.config.js\"",
-    "fix": "standard --fix \"**/*.config.js\"",
-    "test": "tsc -p spec && karma start spec/karma.config.js"
+    "build": "clean-scripts build",
+    "lint": "clean-scripts lint",
+    "test": "clean-scripts test",
+    "fix": "clean-scripts fix"
   },
   "repository": {
     "type": "git",
@@ -38,6 +31,7 @@
     "@types/react": "15.0.34",
     "@types/react-dom": "15.5.1",
     "@types/react-router-dom": "4.0.5",
+    "clean-scripts": "1.0.0",
     "core-js": "2.4.1",
     "jasmine": "2.6.0",
     "karma": "1.7.0",
