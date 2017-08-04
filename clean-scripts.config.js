@@ -3,7 +3,7 @@ module.exports = {
     `rimraf **/index.min-*.js`,
     `rimraf dist`,
     `tsc`,
-    `webpack --config webpack.config.js`,
+    `webpack --display-modules --config webpack.config.js`,
     `rev-static --config rev-static.config.js`
   ],
   lint: [
