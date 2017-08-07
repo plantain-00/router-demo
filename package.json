@@ -20,18 +20,11 @@
   },
   "homepage": "https://github.com/plantain-00/router-demo#readme",
   "devDependencies": {
-    "@angular/common": "4.3.2",
-    "@angular/compiler": "4.3.2",
-    "@angular/core": "4.3.2",
-    "@angular/forms": "4.3.2",
-    "@angular/platform-browser": "4.3.2",
-    "@angular/platform-browser-dynamic": "4.3.2",
-    "@angular/router": "4.3.2",
     "@types/jasmine": "2.5.53",
     "@types/react": "15.6.0",
     "@types/react-dom": "15.5.1",
     "@types/react-router-dom": "4.0.7",
-    "clean-scripts": "1.0.1",
+    "clean-scripts": "1.1.1",
     "core-js": "2.4.1",
     "jasmine": "2.7.0",
     "karma": "1.7.0",
@@ -46,7 +39,6 @@
     "react-router-dom": "4.1.2",
     "rev-static": "3.2.2",
     "rimraf": "2.6.1",
-    "rxjs": "5.4.2",
     "standard": "10.0.2",
     "tslint": "5.5.0",
     "typescript": "2.4.2",
@@ -54,8 +46,7 @@
     "vue-class-component": "5.0.2",
     "vue-router": "2.7.0",
     "vuex": "2.3.1",
-    "webpack": "3.4.1",
-    "zone.js": "0.8.16"
+    "webpack": "3.4.1"
   },
   "dependencies": {
     "tslib": "1.7.1"
