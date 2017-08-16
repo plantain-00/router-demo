@@ -11,7 +11,7 @@ class AppState {
     @observable
     blogs = common.blogs;
     @observable
-    maxPostId = common.maxPostId;
+    private maxPostId = common.maxPostId;
 
     @action
     addPost(payload: { blogId: number, postContent: string }) {
@@ -47,14 +47,8 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
 @inject("appState")
 @observer
 class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { appState: AppState }, {}> {
-    blog: common.Blog;
-    newPostContent = "";
-
-    addNewPost() {
-        if (this.blog) {
-            this.props.appState.addPost({ blogId: this.blog.id, postContent: this.newPostContent });
-        }
-    }
+    private blog: common.Blog;
+    private newPostContent = "";
 
     componentWillMount() {
         const blogId = +this.props.match.params.blog_id;
@@ -64,11 +58,6 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
                 break;
             }
         }
-    }
-
-    setNewPostContent(content: string) {
-        this.newPostContent = content;
-        this.setState({ newPostContent: this.newPostContent });
     }
 
     render() {
@@ -93,13 +82,24 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
             </div >
         );
     }
+
+    private addNewPost() {
+        if (this.blog) {
+            this.props.appState.addPost({ blogId: this.blog.id, postContent: this.newPostContent });
+        }
+    }
+
+    private setNewPostContent(content: string) {
+        this.newPostContent = content;
+        this.setState({ newPostContent: this.newPostContent });
+    }
 }
 
 @inject("appState")
 @observer
 class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: AppState }, {}> {
-    post: common.Post;
-    blog: common.Blog;
+    private post: common.Post;
+    private blog: common.Blog;
 
     componentWillMount() {
         const blogId = +this.props.match.params.blog_id;

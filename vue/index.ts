@@ -138,5 +138,4 @@ const router = new VueRouter({
 class App extends Vue {
 }
 
-// tslint:disable-next-line:no-unused-expression
 new App({ router, store }).$mount("#container");
