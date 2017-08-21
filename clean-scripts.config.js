@@ -2,13 +2,9 @@ const childProcess = require('child_process')
 
 module.exports = {
   build: [
-    {
-      js: [
-        `tsc`,
-        `webpack --display-modules --config webpack.config.js`
-      ],
-      clean: `rimraf **/index.min-*.js`
-    },
+    `tsc`,
+    `webpack --display-modules --config webpack.config.js`,
+    `rimraf **/index.min-*.js`,
     `rev-static --config rev-static.config.js`
   ],
   lint: {
@@ -37,5 +33,9 @@ module.exports = {
     ts: `tslint --fix "*.ts" "vue/*.ts" "react/*.tsx"`,
     js: `standard --fix "**/*.config.js"`
   },
-  watch: `watch-then-execute "*.ts" "vue/*.ts" "react/*.tsx" --script "npm run build"`
+  watch: {
+    src: `tsc --watch`,
+    webpack: `webpack --watch`,
+    rev: `rev-static --watch`
+  }
 }
