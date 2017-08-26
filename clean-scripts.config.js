@@ -5,7 +5,21 @@ module.exports = {
     `tsc`,
     `webpack --display-modules`,
     `rimraf **/index.min-*.js`,
-    `rev-static`
+    `rev-static`,
+    async () => {
+      const { createServer } = require('http-server')
+      const puppeteer = require('puppeteer')
+      const server = createServer()
+      server.listen(8000)
+      const browser = await puppeteer.launch()
+      const page = await browser.newPage()
+      await page.goto(`http://localhost:8000/vue`)
+      await page.screenshot({ path: `vue/screenshot.png`, fullPage: true })
+      await page.goto(`http://localhost:8000/react`)
+      await page.screenshot({ path: `react/screenshot.png`, fullPage: true })
+      server.close()
+      browser.close()
+    }
   ],
   lint: {
     ts: `tslint "*.ts" "vue/*.ts" "react/*.tsx"`,
@@ -15,6 +29,8 @@ module.exports = {
   test: [
     'tsc -p spec',
     process.env.APPVEYOR ? 'echo "skip karma test"' : 'karma start spec/karma.config.js',
+    'git checkout vue/screenshot.png',
+    'git checkout react/screenshot.png',
     () => new Promise((resolve, reject) => {
       childProcess.exec('git status -s', (error, stdout, stderr) => {
         if (error) {
