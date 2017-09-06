@@ -1,4 +1,7 @@
 const childProcess = require('child_process')
+const util = require('util')
+
+const execAsync = util.promisify(childProcess.exec)
 
 module.exports = {
   build: [
@@ -36,19 +39,13 @@ module.exports = {
     'karma start spec/karma.config.js',
     'git checkout vue/screenshot.png',
     'git checkout react/screenshot.png',
-    () => new Promise((resolve, reject) => {
-      childProcess.exec('git status -s', (error, stdout, stderr) => {
-        if (error) {
-          reject(error)
-        } else {
-          if (stdout) {
-            reject(new Error(`generated files doesn't match.`))
-          } else {
-            resolve()
-          }
-        }
-      }).stdout.pipe(process.stdout)
-    })
+    async () => {
+      const { stdout } = await execAsync('git status -s')
+      if (stdout) {
+        console.log(stdout)
+        throw new Error(`generated files doesn't match.`)
+      }
+    }
   ],
   fix: {
     ts: `tslint --fix "*.ts" "vue/*.ts" "react/*.tsx"`,
