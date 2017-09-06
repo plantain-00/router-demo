@@ -26,7 +26,6 @@
     "@types/react-dom": "15.5.4",
     "@types/react-router-dom": "4.0.7",
     "clean-scripts": "1.2.4",
-    "core-js": "2.5.1",
     "http-server": "0.10.0",
     "jasmine": "2.8.0",
     "js-beautify": "1.6.14",
