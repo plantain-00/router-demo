@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/plantain-00/router-demo#readme",
   "devDependencies": {
-    "@types/jasmine": "2.5.54",
+    "@types/jasmine": "2.6.0",
     "@types/react": "16.0.5",
     "@types/react-dom": "15.5.4",
     "@types/react-router-dom": "4.0.7",
@@ -42,16 +42,16 @@
     "react-dom": "15.6.1",
     "react-router-dom": "4.2.2",
     "rev-static": "3.4.0",
-    "rimraf": "2.6.1",
+    "rimraf": "2.6.2",
     "standard": "10.0.3",
     "tslint": "5.7.0",
     "typescript": "2.5.2",
-    "vue": "2.4.2",
+    "vue": "2.4.4",
     "vue-class-component": "5.0.2",
     "vue-router": "2.7.0",
     "vuex": "2.4.0",
     "watch-then-execute": "1.0.1",
-    "webpack": "3.5.6"
+    "webpack": "3.6.0"
   },
   "dependencies": {
     "tslib": "1.7.1"
