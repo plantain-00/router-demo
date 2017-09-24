@@ -1619,11 +1619,12 @@ graceful-fs@^4.1.2:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-gzip-size@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-3.0.0.tgz#546188e9bdc337f673772f81660464b389dce520"
+gzip-size@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-4.0.0.tgz#a80e13e18938bcb2e6702fec606f5cf8b666db3a"
   dependencies:
     duplexer "^0.1.1"
+    pify "^3.0.0"
 
 har-schema@^1.0.5:
   version "1.0.5"
@@ -2056,9 +2057,9 @@ js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
 
-js-beautify@1.6.14:
-  version "1.6.14"
-  resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.6.14.tgz#d3b8f7322d02b9277d58bd238264c327e58044cd"
+js-beautify@1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.7.3.tgz#3f563067162cd0635c8611686d1fa0bb1448773a"
   dependencies:
     config-chain "~1.1.5"
     editorconfig "^0.13.2"
@@ -2262,14 +2263,6 @@ lodash.debounce@4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
-lodash.flatten@4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
-
-lodash.uniq@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
-
 lodash@^3.8.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
@@ -2417,15 +2410,15 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
-mobx-react@4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.2.2.tgz#db9cc3cafefbd830d0584c1149af5aae67829201"
+mobx-react@4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.3.2.tgz#1ecbffa5690cc6460db6bb16c0c11034f0b783da"
   dependencies:
     hoist-non-react-statics "^1.2.0"
 
-mobx@3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.2.2.tgz#aa671459bededfd9880c948889a3f62bce09279c"
+mobx@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.3.0.tgz#1bc1dd7e78547065af04b49bdb7f2098cada47aa"
 
 ms@0.7.1:
   version "0.7.1"
@@ -2455,14 +2448,11 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-no-unused-export@1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/no-unused-export/-/no-unused-export-1.2.6.tgz#9aa5a88c51a718dc4640adf5de295211e6b35e01"
+no-unused-export@1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/no-unused-export/-/no-unused-export-1.2.7.tgz#1fd59afce2093f2a5cac5c07458e5fa446a20110"
   dependencies:
     glob "7.1.2"
-    lodash.flatten "4.4.0"
-    lodash.uniq "4.5.0"
-    minimatch "3.0.4"
     minimist "1.2.0"
     parse5 "3.0.2"
     postcss-less "1.1.0"
@@ -2817,6 +2807,10 @@ pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
 
+pify@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/pify/-/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
+
 pinkie-promise@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pinkie-promise/-/pinkie-promise-2.0.1.tgz#2135d6dfa7a358c069ac9b178776288228450ffa"
@@ -2983,9 +2977,9 @@ punycode@^1.2.4, punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
-puppeteer@0.10.2:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-0.10.2.tgz#b4a959a722bf626ca481f2aeba11fdb810f2c98f"
+puppeteer@0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-0.11.0.tgz#0a2b856f3c2745a5884c6dde9fb44f96663988ed"
   dependencies:
     debug "^2.6.8"
     extract-zip "^1.6.5"
@@ -3246,17 +3240,15 @@ resumer@~0.0.0:
   dependencies:
     through "~2.3.4"
 
-rev-static@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/rev-static/-/rev-static-3.4.0.tgz#f305bbd57dba7da38564e56312218a304914d53d"
+rev-static@3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/rev-static/-/rev-static-3.4.1.tgz#133489010c6fd948d2ef69aa94c9efad5b23e490"
   dependencies:
     camelcase "4.1.0"
     chokidar "1.7.0"
     ejs "2.5.7"
     glob "7.1.2"
-    gzip-size "3.0.0"
-    lodash.flatten "4.4.0"
-    lodash.uniq "4.5.0"
+    gzip-size "4.0.0"
     minimatch "3.0.4"
     minimist "1.2.0"
     pretty-bytes "4.0.2"
@@ -3895,13 +3887,12 @@ warning@^3.0.0:
   dependencies:
     loose-envify "^1.0.0"
 
-watch-then-execute@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/watch-then-execute/-/watch-then-execute-1.0.1.tgz#0f8c997a2c1e710bdf05c175e39f1c133251fb82"
+watch-then-execute@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/watch-then-execute/-/watch-then-execute-1.0.2.tgz#5586cfc72d15534a6b6e17aad86df36da8fe248b"
   dependencies:
     chokidar "1.7.0"
     lodash.debounce "4.0.8"
-    minimatch "3.0.4"
     minimist "1.2.0"
 
 watchpack@^1.4.0:
