@@ -34,7 +34,7 @@ const store = new Vuex.Store({
         <div>blogs</div>
         <ul>
             <li v-for="blog in blogs">
-                <router-link :to="'/vue/blogs/' + blog.id">to /vue/blogs/{{blog.id}}</router-link>
+                <router-link :to="'/router-demo/vue/blogs/' + blog.id">to /blogs/{{blog.id}}</router-link>
             </li>
         </ul>
     </div>
@@ -54,7 +54,7 @@ class Home extends Vue {
         <div>posts</div>
         <ul>
             <li v-for="post in blog.posts">
-                <router-link :to="'/vue/blogs/' + blog.id + '/posts/' + post.id">to /vue/blogs/{{blog.id}}/posts/{{post.id}}</router-link>
+                <router-link :to="'/router-demo/vue/blogs/' + blog.id + '/posts/' + post.id">to /blogs/{{blog.id}}/posts/{{post.id}}</router-link>
             </li>
         </ul>
         <input v-model="newPostContent" />
@@ -86,7 +86,7 @@ class Blog extends Vue {
 @Component({
     template: `
     <div>
-        <div><router-link :to="'/vue/blogs/' + blog.id">to /vue/blogs/{{blog.id}}</router-link></div>
+        <div><router-link :to="'/router-demo/vue/blogs/' + blog.id">to /blogs/{{blog.id}}</router-link></div>
         <div>post {{post.id}}</div>
         <div>{{post.content}}</div>
     </div>
@@ -119,9 +119,9 @@ class Post extends Vue {
 const router = new VueRouter({
     mode: "history",
     routes: [
-        { path: "/vue", component: Home },
-        { path: "/vue/blogs/:blog_id", component: Blog },
-        { path: "/vue/blogs/:blog_id/posts/:post_id", component: Post },
+        { path: "/router-demo/vue", component: Home },
+        { path: "/router-demo/vue/blogs/:blog_id", component: Blog },
+        { path: "/router-demo/vue/blogs/:blog_id/posts/:post_id", component: Post },
     ],
 });
 
@@ -130,7 +130,7 @@ const router = new VueRouter({
     <div>
         <a href="https://github.com/plantain-00/router-demo/tree/master/vue/index.ts" target="_blank">the source code of the demo</a>
         <br/>
-        <div><router-link to="/vue">home</router-link></div>
+        <div><router-link to="/router-demo/vue">home</router-link></div>
         <router-view></router-view>
     </div>
     `,

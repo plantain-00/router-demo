@@ -37,7 +37,7 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
             <div>
                 <div>blogs</div>
                 <ul>
-                    {this.props.appState.blogs.map(blog => <li><Link to={"/react/blogs/" + blog.id}>to /react/blogs/{blog.id}</Link></li>)}
+                    {this.props.appState.blogs.map(blog => <li><Link to={"/router-demo/react/blogs/" + blog.id}>to /blogs/{blog.id}</Link></li>)}
                 </ul>
             </div>
         );
@@ -65,7 +65,7 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
         const posts = this.blog.posts.map(post => {
             return (
                 <li>
-                    <Link to={"/react/blogs/" + this.blog.id + "/posts/" + post.id}>to /react/blogs/{this.blog.id}/posts/{post.id}</Link>
+                    <Link to={"/router-demo/react/blogs/" + this.blog.id + "/posts/" + post.id}>to /blogs/{this.blog.id}/posts/{post.id}</Link>
                 </li>
             );
         });
@@ -121,7 +121,7 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
     render() {
         return (
             <div>
-                <div><Link to={"/react/blogs/" + this.blog.id}>to /react/blogs/{this.blog.id}</Link></div>
+                <div><Link to={"/router-demo/react/blogs/" + this.blog.id}>to /blogs/{this.blog.id}</Link></div>
                 <div>post {this.post.id}</div>
                 <div>{this.post.content}</div>
             </div >
@@ -137,10 +137,10 @@ class Main extends React.Component<{}, {}> {
                     <div>
                         <a href="https://github.com/plantain-00/router-demo/tree/master/react/index.ts" target="_blank">the source code of the demo</a>
                         <br />
-                        <div><Link to="/react">home</Link></div>
-                        <Route exact path="/react" component={Home}></Route>
-                        <Route exact path="/react/blogs/:blog_id" component={Blog}></Route>
-                        <Route exact path="/react/blogs/:blog_id/posts/:post_id" component={Post}></Route>
+                        <div><Link to="/router-demo/react">home</Link></div>
+                        <Route exact path="/router-demo/react" component={Home}></Route>
+                        <Route exact path="/router-demo/react/blogs/:blog_id" component={Blog}></Route>
+                        <Route exact path="/router-demo/react/blogs/:blog_id/posts/:post_id" component={Post}></Route>
                     </div>
                 </Provider>
             </Router>

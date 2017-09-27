@@ -1,5 +1,6 @@
 const childProcess = require('child_process')
 const util = require('util')
+const { sleep } = require('clean-scripts')
 
 const execAsync = util.promisify(childProcess.exec)
 
@@ -14,16 +15,27 @@ module.exports = {
       const puppeteer = require('puppeteer')
       const fs = require('fs')
       const beautify = require('js-beautify').html
-      const server = createServer()
+      const server = createServer({ root: '..' })
       server.listen(8000)
       const browser = await puppeteer.launch()
       const page = await browser.newPage()
       await page.emulate({ viewport: { width: 1440, height: 900 }, userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' })
+
       for (const type of ['vue', 'react']) {
-        await page.goto(`http://localhost:8000/${type}`)
+        await page.goto(`http://localhost:8000/router-demo/${type}/`)
+        await sleep(500)
         await page.screenshot({ path: `${type}/screenshot.png`, fullPage: true })
-        const content = await page.content()
-        fs.writeFileSync(`${type}/screenshot-src.html`, beautify(content))
+        fs.writeFileSync(`${type}/screenshot-src.html`, beautify(await page.content()))
+
+        await page.click('li a')
+        await sleep(500)
+        await page.screenshot({ path: `${type}/screenshot-blog.png`, fullPage: true })
+        fs.writeFileSync(`${type}/screenshot-blog-src.html`, beautify(await page.content()))
+
+        await page.click('li a')
+        await sleep(500)
+        await page.screenshot({ path: `${type}/screenshot-blog-post.png`, fullPage: true })
+        fs.writeFileSync(`${type}/screenshot-blog-post-src.html`, beautify(await page.content()))
       }
       server.close()
       browser.close()
