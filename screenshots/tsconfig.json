@@ -1,9 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es5",
-
-        "module": "esnext",
-        "moduleResolution": "node",
+        "target": "esnext",
+        "module": "commonjs",
         "strict": true,
         "noUnusedLocals": true,
         "noImplicitReturns": true,
@@ -12,10 +10,6 @@
         "jsx": "react",
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
-        "newLine": "LF"
-    },
-    "files": [
-        "react/index.tsx",
-        "vue/index.ts"
-    ]
+        "downlevelIteration": true
+    }
 }
