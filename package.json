@@ -45,6 +45,7 @@
     "rev-static": "3.4.1",
     "rimraf": "2.6.2",
     "standard": "10.0.3",
+    "tslib": "1.7.1",
     "tslint": "5.7.0",
     "typescript": "2.5.3",
     "vue": "2.4.4",
@@ -54,7 +55,5 @@
     "watch-then-execute": "1.0.2",
     "webpack": "3.6.0"
   },
-  "dependencies": {
-    "tslib": "1.7.1"
-  }
+  "dependencies": {}
 }
