@@ -4,7 +4,7 @@ const { Service } = require('clean-scripts')
 
 const execAsync = util.promisify(childProcess.exec)
 
-const tsFiles = `"*.ts" "spec/**/*.ts" "screenshots/**/*.ts" "prerender/**/*.ts"`
+const tsFiles = `"*.ts" "vue/**/*.ts" "react/**/*.tsx" "spec/**/*.ts" "screenshots/**/*.ts" "prerender/**/*.ts"`
 const jsFiles = `"*.config.js" "spec/**/*.config.js"`
 
 module.exports = {
