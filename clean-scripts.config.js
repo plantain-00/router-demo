@@ -3,12 +3,16 @@ const { Service, execAsync } = require('clean-scripts')
 const tsFiles = `"*.ts" "vue/**/*.ts" "react/**/*.tsx" "spec/**/*.ts" "screenshots/**/*.ts" "prerender/**/*.ts"`
 const jsFiles = `"*.config.js" "spec/**/*.config.js"`
 
+const tscCommand = `tsc`
+const webpackCommand = `webpack --display-modules`
+const revStaticCommand = `rev-static`
+
 module.exports = {
   build: [
-    `tsc`,
-    `webpack --display-modules`,
+    tscCommand,
+    webpackCommand,
     `rimraf **/index.min-*.js`,
-    `rev-static`
+    revStaticCommand
   ],
   lint: {
     ts: `tslint ${tsFiles}`,
@@ -31,9 +35,9 @@ module.exports = {
     js: `standard --fix ${jsFiles}`
   },
   watch: {
-    src: `tsc --watch`,
-    webpack: `webpack --watch`,
-    rev: `rev-static --watch`
+    src: `${tscCommand} --watch`,
+    webpack: `${webpackCommand} --watch`,
+    rev: `${revStaticCommand} --watch`
   },
   screenshot: [
     new Service(`http-server '..' -p 8000`),
