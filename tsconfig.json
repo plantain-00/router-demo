@@ -12,7 +12,8 @@
         "jsx": "react",
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
-        "newLine": "LF"
+        "newLine": "LF",
+        "strictFunctionTypes": false
     },
     "files": [
         "react/index.tsx",

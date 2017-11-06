@@ -33,7 +33,7 @@ const store = new Vuex.Store({
     <div>
         <div>blogs</div>
         <ul>
-            <li v-for="blog in blogs">
+            <li v-for="blog in blogs" :key="blog.id">
                 <router-link :to="'/router-demo/vue/blogs/' + blog.id">to /blogs/{{blog.id}}</router-link>
             </li>
         </ul>
@@ -53,7 +53,7 @@ class Home extends Vue {
         <div>{{blog.content}}</div>
         <div>posts</div>
         <ul>
-            <li v-for="post in blog.posts">
+            <li v-for="post in blog.posts" :key="post.id">
                 <router-link :to="'/router-demo/vue/blogs/' + blog.id + '/posts/' + post.id">to /blogs/{{blog.id}}/posts/{{post.id}}</router-link>
             </li>
         </ul>

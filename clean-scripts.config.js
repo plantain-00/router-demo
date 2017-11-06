@@ -1,6 +1,6 @@
 const { Service, execAsync } = require('clean-scripts')
 
-const tsFiles = `"*.ts" "vue/**/*.ts" "react/**/*.tsx" "spec/**/*.ts" "screenshots/**/*.ts" "prerender/**/*.ts"`
+const tsFiles = `"*.ts" "vue/**/*.ts" "react/**/*.tsx" "spec/**/*.ts" "screenshots/**/*.ts"`
 const jsFiles = `"*.config.js" "spec/**/*.config.js"`
 
 const tscCommand = `tsc`
