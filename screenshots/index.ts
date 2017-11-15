@@ -9,15 +9,15 @@ import { sleep } from "clean-scripts";
     for (const type of ["vue", "react"]) {
         await page.goto(`http://localhost:8000/router-demo/${type}/`);
         await sleep(500);
-        await page.screenshot({ path: `screenshots/${type}-initial.png`, fullPage: true });
+        await page.screenshot({ path: `screenshots/${type}-initial.png` });
 
         await page.click("li a");
         await sleep(500);
-        await page.screenshot({ path: `screenshots/${type}-blog.png`, fullPage: true });
+        await page.screenshot({ path: `screenshots/${type}-blog.png` });
 
         await page.click("li a");
         await sleep(500);
-        await page.screenshot({ path: `screenshots/${type}-blog-post.png`, fullPage: true });
+        await page.screenshot({ path: `screenshots/${type}-blog-post.png` });
     }
 
     browser.close();
