@@ -37,7 +37,7 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
             <div>
                 <div>blogs</div>
                 <ul>
-                    {this.props.appState.blogs.map(blog => <li><Link to={"/router-demo/react/blogs/" + blog.id}>to /blogs/{blog.id}</Link></li>)}
+                    {this.props.appState.blogs.map(blog => <li key={blog.id}><Link to={"/router-demo/react/blogs/" + blog.id}>to /blogs/{blog.id}</Link></li>)}
                 </ul>
             </div>
         );
@@ -64,7 +64,7 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
         const newPostContentButton = this.newPostContent ? <button v-if="newPostContent" onClick={() => this.addNewPost()}>add new post</button> : null;
         const posts = this.blog.posts.map(post => {
             return (
-                <li>
+                <li key={post.id}>
                     <Link to={"/router-demo/react/blogs/" + this.blog.id + "/posts/" + post.id}>to /blogs/{this.blog.id}/posts/{post.id}</Link>
                 </li>
             );
