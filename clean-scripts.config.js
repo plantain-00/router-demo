@@ -4,7 +4,7 @@ const tsFiles = `"*.ts" "vue/**/*.ts" "react/**/*.tsx" "spec/**/*.ts" "screensho
 const jsFiles = `"*.config.js" "spec/**/*.config.js"`
 
 const tscCommand = `tsc`
-const webpackCommand = `webpack --display-modules`
+const webpackCommand = `webpack`
 const revStaticCommand = `rev-static`
 
 module.exports = {
