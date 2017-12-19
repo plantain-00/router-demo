@@ -18,26 +18,39 @@ if (Vue1.default === undefined) {
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
-    state: {
-        blogs: common.blogs,
-        maxPostId: common.maxPostId,
-    },
-    mutations: {
-        addPost(state, payload: { blogId: number, postContent: string }) {
-            for (const blog of state.blogs) {
-                if (blog.id === payload.blogId) {
-                    state.maxPostId++;
-                    blog.posts.push({
-                        id: state.maxPostId,
-                        content: payload.postContent,
-                    });
-                    return;
-                }
-            }
+export function createApp() {
+    const store = new Vuex.Store({
+        state: {
+            blogs: common.blogs,
+            maxPostId: common.maxPostId,
         },
-    },
-});
+        mutations: {
+            addPost(state, payload: { blogId: number, postContent: string }) {
+                for (const blog of state.blogs) {
+                    if (blog.id === payload.blogId) {
+                        state.maxPostId++;
+                        blog.posts.push({
+                            id: state.maxPostId,
+                            content: payload.postContent,
+                        });
+                        return;
+                    }
+                }
+            },
+        },
+    });
+
+    const router = new VueRouter({
+        mode: "history",
+        routes: [
+            { path: "/router-demo/vue/", component: Home },
+            { path: "/router-demo/vue/blogs/:blog_id", component: Blog },
+            { path: "/router-demo/vue/blogs/:blog_id/posts/:post_id", component: Post },
+        ],
+    });
+
+    return new App({ store, router });
+}
 
 @Component({
     template: `
@@ -127,15 +140,6 @@ class Post extends Vue {
     }
 }
 
-export const router = new VueRouter({
-    mode: "history",
-    routes: [
-        { path: "/router-demo/vue/", component: Home },
-        { path: "/router-demo/vue/blogs/:blog_id", component: Blog },
-        { path: "/router-demo/vue/blogs/:blog_id/posts/:post_id", component: Post },
-    ],
-});
-
 @Component({
     template: `
     <div>
@@ -146,5 +150,5 @@ export const router = new VueRouter({
     </div>
     `,
 })
-export class App extends Vue {
+class App extends Vue {
 }

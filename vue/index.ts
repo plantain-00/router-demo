@@ -1,3 +1,3 @@
-import { App, router, store } from "./core";
+import { createApp } from "./core";
 
-new App({ router, store }).$mount("#container");
+createApp().$mount("#container");
