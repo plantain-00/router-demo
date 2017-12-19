@@ -12,26 +12,6 @@ const renderer = vueServerRenderer.createRenderer();
 
 const template = fs.readFileSync("./vue/index.html").toString();
 
-server.get("/router-demo/vue/", async (req, res) => {
-    const app = createApp();
-    const html = await renderer.renderToString(app);
-    res.end(template.replace(`<!--vue-ssr-outlet-->`, html));
-});
-
-server.get("/router-demo/vue/blogs/:blog_id", async (req, res) => {
-    const app = createApp();
-    app.$router.replace({ path: `/router-demo/vue/blogs/${req.params.blog_id}` });
-    const html = await renderer.renderToString(app);
-    res.end(template.replace(`<!--vue-ssr-outlet-->`, html));
-});
-
-server.get("/router-demo/vue/blogs/:blog_id/posts/:post_id", async (req, res) => {
-    const app = createApp();
-    app.$router.replace({ path: `/router-demo/vue/blogs/${req.params.blog_id}/posts/${req.params.post_id}` });
-    const html = await renderer.renderToString(app);
-    res.end(template.replace(`<!--vue-ssr-outlet-->`, html));
-});
-
 const staticFiles: { [name: string]: string } = {};
 
 server.get("/router-demo/vue/:name.js", async (req, res) => {
@@ -43,6 +23,24 @@ server.get("/router-demo/vue/:name.js", async (req, res) => {
     const buffer = await readFileAsync(`./vue/${filename}.js`);
     staticFiles[filename] = buffer.toString();
     res.end(staticFiles[filename]);
+});
+
+server.get("*", (req, res) => {
+    const app = createApp();
+    app.$router.push(req.url);
+    app.$router.onReady(async () => {
+        try {
+            const matchedComponents = app.$router.getMatchedComponents();
+            if (matchedComponents.length === 0) {
+                res.status(404).end();
+                return;
+            }
+            const html = await renderer.renderToString(app);
+            res.end(template.replace(`<!--vue-ssr-outlet-->`, html));
+        } catch (error) {
+            res.status(500).end();
+        }
+    });
 });
 
 server.listen(9000);
