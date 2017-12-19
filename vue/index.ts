@@ -1,3 +1,7 @@
 import { createApp } from "./core";
 
-createApp().$mount("#container");
+const app = createApp();
+
+app.$router.onReady(() => {
+    app.$mount("#container");
+});

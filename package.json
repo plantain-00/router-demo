@@ -50,14 +50,15 @@
     "tslib": "1.8.1",
     "tslint": "5.8.0",
     "typescript": "2.6.1",
+    "webpack": "3.10.0"
+  },
+  "dependencies": {
+    "express": "4.16.2",
     "vue": "2.5.11",
     "vue-class-component": "6.1.1",
     "vue-router": "3.0.1",
     "vue-server-renderer": "2.5.11",
     "vuex": "3.0.1",
-    "webpack": "3.10.0"
-  },
-  "dependencies": {
-    "express": "4.16.2"
+    "vuex-router-sync": "5.0.0"
   }
 }
