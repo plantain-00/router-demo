@@ -6,15 +6,13 @@ const jsFiles = `"*.config.js" "spec/**/*.config.js"`
 const tscCommand = `tsc`
 const webpackCommand = `webpack`
 const revStaticCommand = `rev-static`
-const tscServerCommand = `tsc -p tsconfig.server.json`
 
 module.exports = {
   build: [
     tscCommand,
     webpackCommand,
     `rimraf **/index.min-*.js`,
-    revStaticCommand,
-    tscServerCommand
+    revStaticCommand
   ],
   lint: {
     ts: `tslint ${tsFiles}`,
@@ -33,7 +31,6 @@ module.exports = {
   },
   watch: {
     src: `${tscCommand} --watch`,
-    server: `${tscServerCommand} --watch`,
     webpack: `${webpackCommand} --watch`,
     rev: `${revStaticCommand} --watch`
   },

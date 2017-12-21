@@ -4,6 +4,7 @@ import express = require("express");
 import * as vueServerRenderer from "vue-server-renderer";
 import * as fs from "fs";
 import * as util from "util";
+import * as common from "../common";
 
 const readFileAsync = util.promisify(fs.readFile);
 
@@ -13,6 +14,10 @@ const renderer = vueServerRenderer.createRenderer();
 const template = fs.readFileSync("./vue/index.html").toString();
 
 const staticFiles: { [name: string]: string } = {};
+
+server.get("/router-demo/blogs.json", async (req, res) => {
+    res.json(common.blogs).end();
+});
 
 server.get("/router-demo/vue/:name.js", async (req, res) => {
     const filename = req.params.name;

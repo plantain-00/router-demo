@@ -22,10 +22,23 @@ Vue.use(Vuex);
 export function createApp() {
     const store = new Vuex.Store({
         state: {
-            blogs: common.blogs,
-            maxPostId: common.maxPostId,
+            blogs: [] as common.Blog[],
+            maxPostId: 0 as number,
+        },
+        actions: {
+            fetchItem({ commit }) {
+                return fetch("/router-demo/blogs.json")
+                    .then(response => response.json())
+                    .then(blogs => {
+                        commit("initBlogs", { blogs });
+                    });
+            },
         },
         mutations: {
+            initBlogs(state, payload: { blogs: common.Blog[] }) {
+                state.blogs = payload.blogs;
+                state.maxPostId = Math.max(...payload.blogs.map(b => Math.max(...b.posts.map(p => p.id))));
+            },
             addPost(state, payload: { blogId: number, postContent: string }) {
                 for (const blog of state.blogs) {
                     if (blog.id === payload.blogId) {
@@ -71,6 +84,9 @@ class Home extends Vue {
     get blogs() {
         return this.$store.state.blogs;
     }
+    beforeMount() {
+        this.$store.dispatch("fetchItem");
+    }
 }
 
 @Component({
@@ -108,6 +124,9 @@ class Blog extends Vue {
             this.$store.commit("addPost", { blogId: this.blog.id, postContent: this.newPostContent });
         }
     }
+    beforeMount() {
+        this.$store.dispatch("fetchItem");
+    }
 }
 
 @Component({
@@ -140,6 +159,9 @@ class Post extends Vue {
             }
         }
         return null;
+    }
+    beforeMount() {
+        this.$store.dispatch("fetchItem");
     }
 }
 

@@ -2,6 +2,12 @@
     "compilerOptions": {
         "target": "es5",
 
+        "lib": [
+            "es2015.promise",
+            "es5",
+            "dom"
+        ],
+
         "module": "commonjs",
         "moduleResolution": "node",
         "strict": true,
@@ -16,6 +22,7 @@
     },
     "files": [
         "react/index.tsx",
-        "vue/index.ts"
+        "vue/index.ts",
+        "vue/server.ts"
     ]
 }
