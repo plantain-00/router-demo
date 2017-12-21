@@ -19,14 +19,19 @@ if (Vue1.default === undefined) {
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
-export function createApp() {
+export function createApp(methods: { fetchBlogs?: () => Promise<common.Blog[]> }) {
     const store = new Vuex.Store({
         state: {
             blogs: [] as common.Blog[],
             maxPostId: 0 as number,
         },
         actions: {
-            fetchItem({ commit }) {
+            fetchBlogs({ commit }) {
+                if (methods.fetchBlogs) {
+                    return methods.fetchBlogs().then(blogs => {
+                        commit("initBlogs", { blogs });
+                    });
+                }
                 return fetch("/router-demo/blogs.json")
                     .then(response => response.json())
                     .then(blogs => {
@@ -81,11 +86,14 @@ export function createApp() {
     `,
 })
 class Home extends Vue {
+    public static fetchData(store: Vuex1.Store<any>) {
+        return store.dispatch("fetchBlogs");
+    }
     get blogs() {
         return this.$store.state.blogs;
     }
     beforeMount() {
-        this.$store.dispatch("fetchItem");
+        this.$store.dispatch("fetchBlogs");
     }
 }
 
@@ -106,6 +114,10 @@ class Home extends Vue {
     `,
 })
 class Blog extends Vue {
+    public static fetchData(store: Vuex1.Store<any>) {
+        return store.dispatch("fetchBlogs");
+    }
+
     newPostContent = "";
 
     get blog() {
@@ -125,7 +137,7 @@ class Blog extends Vue {
         }
     }
     beforeMount() {
-        this.$store.dispatch("fetchItem");
+        this.$store.dispatch("fetchBlogs");
     }
 }
 
@@ -139,6 +151,10 @@ class Blog extends Vue {
     `,
 })
 class Post extends Vue {
+    public static fetchData(store: Vuex1.Store<any>) {
+        return store.dispatch("fetchBlogs");
+    }
+
     get blog() {
         const blogId = +this.$route.params.blog_id;
         const blogs: common.Blog[] = this.$store.state.blogs;
@@ -161,7 +177,7 @@ class Post extends Vue {
         return null;
     }
     beforeMount() {
-        this.$store.dispatch("fetchItem");
+        this.$store.dispatch("fetchBlogs");
     }
 }
 

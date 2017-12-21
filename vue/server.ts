@@ -31,7 +31,11 @@ server.get("/router-demo/vue/:name.js", async (req, res) => {
 });
 
 server.get("*", (req, res) => {
-    const app = createApp();
+    const app = createApp({
+        fetchBlogs() {
+            return Promise.resolve(common.blogs);
+        },
+    });
     app.$router.push(req.url);
     app.$router.onReady(async () => {
         try {
@@ -40,8 +44,15 @@ server.get("*", (req, res) => {
                 res.status(404).end();
                 return;
             }
+            await Promise.all(matchedComponents.map(Component => {
+                if ((Component as any).fetchData) {
+                    return (Component as any).fetchData(app.$store);
+                }
+            }));
             const html = await renderer.renderToString(app);
-            res.end(template.replace(`<!--vue-ssr-outlet-->`, html));
+            const result = template.replace(`<!--vue-ssr-outlet-->`, html)
+                .replace(`<!--vue-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(app.$store.state)}</script>`);
+            res.end(result);
         } catch (error) {
             res.status(500).end();
         }
