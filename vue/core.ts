@@ -19,6 +19,14 @@ if (Vue1.default === undefined) {
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
+function isFirstPage() {
+    if ((window as any).__INITIAL_STATE__) {
+        (window as any).__INITIAL_STATE__ = undefined;
+        return true;
+    }
+    return false;
+}
+
 export function createApp(methods: { fetchBlogs?: () => Promise<common.Blog[]> }) {
     const store = new Vuex.Store({
         state: {
@@ -93,7 +101,9 @@ class Home extends Vue {
         return this.$store.state.blogs;
     }
     beforeMount() {
-        this.$store.dispatch("fetchBlogs");
+        if (!isFirstPage()) {
+            this.$store.dispatch("fetchBlogs");
+        }
     }
 }
 
@@ -137,7 +147,9 @@ class Blog extends Vue {
         }
     }
     beforeMount() {
-        this.$store.dispatch("fetchBlogs");
+        if (!isFirstPage()) {
+            this.$store.dispatch("fetchBlogs");
+        }
     }
 }
 
@@ -177,7 +189,9 @@ class Post extends Vue {
         return null;
     }
     beforeMount() {
-        this.$store.dispatch("fetchBlogs");
+        if (!isFirstPage()) {
+            this.$store.dispatch("fetchBlogs");
+        }
     }
 }
 

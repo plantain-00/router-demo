@@ -12,11 +12,12 @@ const server = express();
 const renderer = vueServerRenderer.createRenderer();
 
 const template = fs.readFileSync("./vue/index.html").toString();
+const blogs: common.Blog[] = JSON.parse(fs.readFileSync("./blogs.json").toString());
 
 const staticFiles: { [name: string]: string } = {};
 
 server.get("/router-demo/blogs.json", async (req, res) => {
-    res.json(common.blogs).end();
+    res.json(blogs).end();
 });
 
 server.get("/router-demo/vue/:name.js", async (req, res) => {
@@ -33,7 +34,7 @@ server.get("/router-demo/vue/:name.js", async (req, res) => {
 server.get("*", (req, res) => {
     const app = createApp({
         fetchBlogs() {
-            return Promise.resolve(common.blogs);
+            return Promise.resolve(blogs);
         },
     });
     app.$router.push(req.url);
