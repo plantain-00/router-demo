@@ -27,6 +27,21 @@ function isFirstPage() {
     return false;
 }
 
+type Action = {
+    type: "fetchBlogs",
+};
+type Mutation =
+    {
+        type: "initBlogs",
+        blogs: common.Blog[],
+    }
+    |
+    {
+        type: "addPost",
+        blogId: number,
+        postContent: string,
+    };
+
 export function createApp(methods: { fetchBlogs?: () => Promise<common.Blog[]> }) {
     const store = new Vuex.Store({
         state: {
@@ -34,16 +49,16 @@ export function createApp(methods: { fetchBlogs?: () => Promise<common.Blog[]> }
             maxPostId: 0 as number,
         },
         actions: {
-            fetchBlogs({ commit }) {
+            fetchBlogs(context) {
                 if (methods.fetchBlogs) {
                     return methods.fetchBlogs().then(blogs => {
-                        commit("initBlogs", { blogs });
+                        context.commit<Mutation>({ type: "initBlogs", blogs });
                     });
                 }
                 return fetch("/router-demo/blogs.json")
                     .then(response => response.json())
                     .then(blogs => {
-                        commit("initBlogs", { blogs });
+                        context.commit<Mutation>({ type: "initBlogs", blogs });
                     });
             },
         },
@@ -95,14 +110,14 @@ export function createApp(methods: { fetchBlogs?: () => Promise<common.Blog[]> }
 })
 class Home extends Vue {
     public static fetchData(store: Vuex1.Store<any>) {
-        return store.dispatch("fetchBlogs");
+        return store.dispatch<Action>({ type: "fetchBlogs" });
     }
     get blogs() {
         return this.$store.state.blogs;
     }
     beforeMount() {
         if (!isFirstPage()) {
-            this.$store.dispatch("fetchBlogs");
+            this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }
 }
@@ -125,7 +140,7 @@ class Home extends Vue {
 })
 class Blog extends Vue {
     public static fetchData(store: Vuex1.Store<any>) {
-        return store.dispatch("fetchBlogs");
+        return store.dispatch<Action>({ type: "fetchBlogs" });
     }
 
     newPostContent = "";
@@ -143,12 +158,12 @@ class Blog extends Vue {
 
     addNewPost() {
         if (this.blog) {
-            this.$store.commit("addPost", { blogId: this.blog.id, postContent: this.newPostContent });
+            this.$store.commit({ type: "addPost", blogId: this.blog.id, postContent: this.newPostContent });
         }
     }
     beforeMount() {
         if (!isFirstPage()) {
-            this.$store.dispatch("fetchBlogs");
+            this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }
 }
@@ -164,7 +179,7 @@ class Blog extends Vue {
 })
 class Post extends Vue {
     public static fetchData(store: Vuex1.Store<any>) {
-        return store.dispatch("fetchBlogs");
+        return store.dispatch<Action>({ type: "fetchBlogs" });
     }
 
     get blog() {
@@ -190,7 +205,7 @@ class Post extends Vue {
     }
     beforeMount() {
         if (!isFirstPage()) {
-            this.$store.dispatch("fetchBlogs");
+            this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }
 }
