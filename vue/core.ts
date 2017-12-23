@@ -19,14 +19,6 @@ if (Vue1.default === undefined) {
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
-function isFirstPage() {
-    if ((window as any).__INITIAL_STATE__) {
-        (window as any).__INITIAL_STATE__ = undefined;
-        return true;
-    }
-    return false;
-}
-
 type Action = {
     type: "fetchBlogs",
 };
@@ -42,7 +34,9 @@ type Mutation =
         postContent: string,
     };
 
-export function createApp(methods: { fetchBlogs?: () => Promise<common.Blog[]> }) {
+export const methods: { fetchBlogs?: () => Promise<common.Blog[]> } = {};
+
+export function createApp() {
     const store = new Vuex.Store({
         state: {
             blogs: [] as common.Blog[],
@@ -55,11 +49,7 @@ export function createApp(methods: { fetchBlogs?: () => Promise<common.Blog[]> }
                         context.commit<Mutation>({ type: "initBlogs", blogs });
                     });
                 }
-                return fetch("/router-demo/blogs.json")
-                    .then(response => response.json())
-                    .then(blogs => {
-                        context.commit<Mutation>({ type: "initBlogs", blogs });
-                    });
+                return Promise.resolve();
             },
         },
         mutations: {
@@ -116,7 +106,7 @@ class Home extends Vue {
         return this.$store.state.blogs;
     }
     beforeMount() {
-        if (!isFirstPage()) {
+        if (!common.isFirstPage()) {
             this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }
@@ -162,7 +152,7 @@ class Blog extends Vue {
         }
     }
     beforeMount() {
-        if (!isFirstPage()) {
+        if (!common.isFirstPage()) {
             this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }
@@ -204,7 +194,7 @@ class Post extends Vue {
         return null;
     }
     beforeMount() {
-        if (!isFirstPage()) {
+        if (!common.isFirstPage()) {
             this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }

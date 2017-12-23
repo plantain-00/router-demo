@@ -1,4 +1,4 @@
-export type Post = {
+type Post = {
     id: number;
     content: string;
 };
@@ -9,7 +9,10 @@ export type Blog = {
     posts: Post[];
 };
 
-// tslint:disable-next-line:no-var-requires
-export const blogs: Blog[] = require("./blogs.json");
-
-export const maxPostId = 23;
+export function isFirstPage() {
+    if ((window as any).__INITIAL_STATE__) {
+        (window as any).__INITIAL_STATE__ = undefined;
+        return true;
+    }
+    return false;
+}

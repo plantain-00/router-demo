@@ -1,4 +1,4 @@
-import { createApp } from "./core";
+import { createApp, methods } from "./core";
 
 import express = require("express");
 import * as vueServerRenderer from "vue-server-renderer";
@@ -31,12 +31,10 @@ server.get("/router-demo/vue/:name.js", async (req, res) => {
     res.end(staticFiles[filename]);
 });
 
+methods.fetchBlogs = () => Promise.resolve(blogs);
+
 server.get("*", (req, res) => {
-    const app = createApp({
-        fetchBlogs() {
-            return Promise.resolve(blogs);
-        },
-    });
+    const app = createApp();
     app.$router.push(req.url);
     app.$router.onReady(async () => {
         try {
@@ -55,6 +53,8 @@ server.get("*", (req, res) => {
                 .replace(`<!--vue-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(app.$store.state)}</script>`);
             res.end(result);
         } catch (error) {
+            // tslint:disable-next-line:no-console
+            console.log(error);
             res.status(500).end();
         }
     });

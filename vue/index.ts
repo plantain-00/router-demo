@@ -1,6 +1,8 @@
-import { createApp } from "./core";
+import { createApp, methods } from "./core";
 
-const app = createApp({});
+const app = createApp();
+
+methods.fetchBlogs = () => fetch("/router-demo/blogs.json").then(response => response.json());
 
 if ((window as any).__INITIAL_STATE__) {
     app.$store.replaceState((window as any).__INITIAL_STATE__);
