@@ -7,10 +7,9 @@
 
 ## online demo
 
-<https://plantain-00.github.io/router-demo/vue/>
++ SPA: <https://plantain-00.github.io/router-demo/vue/> <https://plantain-00.github.io/router-demo/react/>
++ SSR: <https://router-demo.yorkyao.xyz/router-demo/vue/> <https://router-demo.yorkyao.xyz/router-demo/react/>
 
-<https://plantain-00.github.io/router-demo/react/>
-
-## start servers
+## start server
 
 `node server.js` then open <http://localhost:9000/router-demo/vue/> or <http://localhost:9000/router-demo/react/>
