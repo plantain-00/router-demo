@@ -70,3 +70,6 @@ service-worker.js
 #**/*-*.png
 #index.html
 !server.js
+!core.js
+!react/index.js
+!vue/index.js
