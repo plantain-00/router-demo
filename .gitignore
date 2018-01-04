@@ -69,3 +69,4 @@ service-worker.js
 !*.index.bundle.js
 #**/*-*.png
 #index.html
+!server.js
