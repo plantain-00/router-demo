@@ -19,11 +19,5 @@
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
         "newLine": "LF"
-    },
-    "files": [
-        "react/index.tsx",
-        "react/server.tsx",
-        "vue/index.ts",
-        "vue/server.ts"
-    ]
+    }
 }

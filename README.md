@@ -13,6 +13,4 @@
 
 ## start servers
 
-`node vue/server.js` then open <http://localhost:9000/router-demo/vue/>
-
-`node react/server.js` then open <http://localhost:9000/router-demo/react/>
+`node server.js` then open <http://localhost:9000/router-demo/vue/> or <http://localhost:9000/router-demo/react/>

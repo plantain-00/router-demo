@@ -2,7 +2,6 @@ import Vue1 = require("vue");
 import Component from "vue-class-component";
 import VueRouter1 = require("vue-router");
 import Vuex1 = require("vuex");
-// import { sync } from "vuex-router-sync";
 import * as common from "../common";
 
 // tslint:disable
@@ -83,8 +82,6 @@ export function createApp() {
             { path: "/router-demo/vue/blogs/:blog_id/posts/:post_id", component: Post },
         ],
     });
-
-    // sync(store, router);
 
     return new App({ store, router });
 }
