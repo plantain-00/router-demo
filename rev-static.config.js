@@ -2,6 +2,7 @@ module.exports = {
   inputFiles: [
     'vue/index.min.js',
     'react/index.min.js',
+    'index.min.css',
     '**/index.ejs.html'
   ],
   outputFiles: file => file.replace('.ejs', ''),

@@ -27,6 +27,9 @@ export class AppState {
 
     @action
     fetchBlogs() {
+        if (this.blogs.length > 0) {
+            return Promise.resolve();
+        }
         if (methods.fetchBlogs) {
             return methods.fetchBlogs().then(blogs => {
                 this.initBlogs(blogs);
@@ -68,9 +71,9 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
     render() {
         return (
             <div>
-                <div>blogs</div>
+                <div className="blogs-title">blogs</div>
                 <ul>
-                    {this.props.appState.blogs.map(blog => <li key={blog.id}><Link to={"/router-demo/react/blogs/" + blog.id}>to /blogs/{blog.id}</Link></li>)}
+                    {this.props.appState.blogs.map(blog => <li key={blog.id}><Link to={"/router-demo/react/blogs/" + blog.id}>{blog.content}</Link></li>)}
                 </ul>
             </div>
         );
@@ -109,14 +112,14 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
         const posts = this.blog.posts.map(post => {
             return (
                 <li key={post.id}>
-                    <Link to={"/router-demo/react/blogs/" + this.blog!.id + "/posts/" + post.id}>to /blogs/{this.blog!.id}/posts/{post.id}</Link>
+                    <Link to={"/router-demo/react/blogs/" + this.blog!.id + "/posts/" + post.id}>{post.content}</Link>
                 </li>
             );
         });
         return (
             <div>
-                <div>blog {this.blog.id}</div>
-                <div>{this.blog.content}</div>
+                <div className="blog-title">blog {this.blog.id}</div>
+                <div className="blog-content">{this.blog.content}</div>
                 <div>posts</div>
                 <ul>
                     {posts}
@@ -179,9 +182,9 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
         }
         return (
             <div>
-                <div><Link to={"/router-demo/react/blogs/" + this.blog.id}>to /blogs/{this.blog.id}</Link></div>
-                <div>post {this.post.id}</div>
-                <div>{this.post.content}</div>
+                <div><Link to={"/router-demo/react/blogs/" + this.blog.id}>back to blog</Link></div>
+                <div className="post-title">post {this.post.id}</div>
+                <div className="post-content">{this.post.content}</div>
             </div >
         );
     }

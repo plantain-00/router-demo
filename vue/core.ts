@@ -44,6 +44,9 @@ export function createApp() {
         },
         actions: {
             fetchBlogs(context) {
+                if (context.state.blogs.length > 0) {
+                    return Promise.resolve();
+                }
                 if (methods.fetchBlogs) {
                     return methods.fetchBlogs().then(blogs => {
                         context.commit<Mutation>({ type: "initBlogs", blogs });
@@ -89,10 +92,10 @@ export function createApp() {
 @Component({
     template: `
     <div>
-        <div>blogs</div>
+        <div class="blogs-title">blogs</div>
         <ul>
             <li v-for="blog in blogs" :key="blog.id">
-                <router-link :to="'/router-demo/vue/blogs/' + blog.id">to /blogs/{{blog.id}}</router-link>
+                <router-link :to="'/router-demo/vue/blogs/' + blog.id">{{blog.content}}</router-link>
             </li>
         </ul>
     </div>
@@ -115,12 +118,12 @@ class Home extends Vue {
 @Component({
     template: `
     <div>
-        <div>blog {{blog.id}}</div>
-        <div>{{blog.content}}</div>
+        <div class="blog-title">blog {{blog.id}}</div>
+        <div class="blog-content">{{blog.content}}</div>
         <div>posts</div>
         <ul>
             <li v-for="post in blog.posts" :key="post.id">
-                <router-link :to="'/router-demo/vue/blogs/' + blog.id + '/posts/' + post.id">to /blogs/{{blog.id}}/posts/{{post.id}}</router-link>
+                <router-link :to="'/router-demo/vue/blogs/' + blog.id + '/posts/' + post.id">{{post.content}}</router-link>
             </li>
         </ul>
         <input v-model="newPostContent" />
@@ -161,9 +164,9 @@ class Blog extends Vue {
 @Component({
     template: `
     <div>
-        <div><router-link :to="'/router-demo/vue/blogs/' + blog.id">to /blogs/{{blog.id}}</router-link></div>
-        <div>post {{post.id}}</div>
-        <div>{{post.content}}</div>
+        <div><router-link :to="'/router-demo/vue/blogs/' + blog.id">back to blog</router-link></div>
+        <div class="post-title">post {{post.id}}</div>
+        <div class="post-content">{{post.content}}</div>
     </div>
     `,
 })
