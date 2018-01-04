@@ -71,5 +71,3 @@ service-worker.js
 #index.html
 !server.js
 !core.js
-!react/index.js
-!vue/index.js
