@@ -42,9 +42,9 @@ server.get("/router-demo/:type/:name.js", async (req, res) => {
     res.end(buffer.toString());
 });
 
-reactMethods.fetchBlogs = () => Promise.resolve(blogs);
+reactMethods.fetchBlogs = () => Promise.resolve(JSON.parse(JSON.stringify(blogs)));
 
-vueMethods.fetchBlogs = () => Promise.resolve(blogs);
+vueMethods.fetchBlogs = () => Promise.resolve(JSON.parse(JSON.stringify(blogs)));
 
 server.get("/router-demo/react/*", async (req, res) => {
     const appState = new AppState();
