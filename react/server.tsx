@@ -25,12 +25,23 @@ server.get("/router-demo/blogs.json", async (req, res) => {
 });
 
 server.get("/router-demo/react/:name.js", async (req, res) => {
-    const filename = req.params.name;
+    const filename = req.params.name + ".js";
     if (staticFiles[filename]) {
         res.end(staticFiles[filename]);
         return;
     }
-    const buffer = await readFileAsync(`./react/${filename}.js`);
+    const buffer = await readFileAsync(`./react/${filename}`);
+    staticFiles[filename] = buffer.toString();
+    res.end(staticFiles[filename]);
+});
+
+server.get("/router-demo/:name.css", async (req, res) => {
+    const filename = req.params.name + ".css";
+    if (staticFiles[filename]) {
+        res.end(staticFiles[filename]);
+        return;
+    }
+    const buffer = await readFileAsync(`./${filename}`);
     staticFiles[filename] = buffer.toString();
     res.end(staticFiles[filename]);
 });

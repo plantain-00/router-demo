@@ -19,15 +19,17 @@ export function jumpTo(url: string, state: any) {
 }
 
 export function getInitialState() {
-    if ((window as any).__INITIAL_STATE__) {
-        (window as any).__INITIAL_STATE__ = undefined;
-        isFirstPage = true;
-        return (window as any).__INITIAL_STATE__;
-    }
     const storeString = localStorage.getItem(storeKey);
     if (storeString) {
         localStorage.removeItem(storeKey);
+        (window as any).__INITIAL_STATE__ = undefined;
         return JSON.parse(storeString);
+    }
+    const initialState = (window as any).__INITIAL_STATE__;
+    if (initialState) {
+        (window as any).__INITIAL_STATE__ = undefined;
+        isFirstPage = true;
+        return initialState;
     }
     return undefined;
 }
