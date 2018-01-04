@@ -64,13 +64,16 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
         return appState.fetchBlogs();
     }
     componentWillMount() {
-        if (isClientSide && !common.isFirstPage()) {
+        if (isClientSide && !common.isFirstPage) {
             this.props.appState.fetchBlogs();
         }
     }
     render() {
         return (
             <div>
+                <div className="router">
+                    <a href="javascript:void(0)" onClick={() => common.jumpTo("/router-demo/vue/", this.props.appState)}>to vue app</a>
+                </div>
                 <div className="blogs-title">blogs</div>
                 <ul>
                     {this.props.appState.blogs.map(blog => <li key={blog.id}><Link to={"/router-demo/react/blogs/" + blog.id}>{blog.content}</Link></li>)}
@@ -99,7 +102,7 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
     }
 
     componentWillMount() {
-        if (isClientSide && !common.isFirstPage()) {
+        if (isClientSide && !common.isFirstPage) {
             this.props.appState.fetchBlogs();
         }
     }
@@ -118,6 +121,10 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
         });
         return (
             <div>
+                <div className="router">
+                    <a href="javascript:void(0)" onClick={() => common.jumpTo("/router-demo/vue/", this.props.appState)}>to vue app</a>
+                    <Link to="/router-demo/react/">back to app</Link>
+                </div>
                 <div className="blog-title">blog {this.blog.id}</div>
                 <div className="blog-content">{this.blog.content}</div>
                 <div>posts</div>
@@ -171,7 +178,7 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
     }
 
     componentWillMount() {
-        if (isClientSide && !common.isFirstPage()) {
+        if (isClientSide && !common.isFirstPage) {
             this.props.appState.fetchBlogs();
         }
     }
@@ -182,7 +189,11 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
         }
         return (
             <div>
-                <div><Link to={"/router-demo/react/blogs/" + this.blog.id}>back to blog</Link></div>
+                <div className="router">
+                    <a href="javascript:void(0)" onClick={() => common.jumpTo("/router-demo/vue/", this.props.appState)}>to vue app</a>
+                    <Link to="/router-demo/react/">back to app</Link>
+                    <Link to={"/router-demo/react/blogs/" + this.blog.id}>back to blog</Link>
+                </div>
                 <div className="post-title">post {this.post.id}</div>
                 <div className="post-content">{this.post.content}</div>
             </div >
@@ -214,7 +225,6 @@ export class Main extends React.Component<{}, {}> {
             <div>
                 <a href="https://github.com/plantain-00/router-demo/tree/master/react/index.ts" target="_blank">the source code of the demo</a>
                 <br />
-                <div><Link to="/router-demo/react/">home</Link></div>
                 {routes.map(route => (
                     <Route key={route.path} {...route} />
                 ))}

@@ -2,7 +2,7 @@ import Vue1 = require("vue");
 import Component from "vue-class-component";
 import VueRouter1 = require("vue-router");
 import Vuex1 = require("vuex");
-import { sync } from "vuex-router-sync";
+// import { sync } from "vuex-router-sync";
 import * as common from "../common";
 
 // tslint:disable
@@ -84,7 +84,7 @@ export function createApp() {
         ],
     });
 
-    sync(store, router);
+    // sync(store, router);
 
     return new App({ store, router });
 }
@@ -92,6 +92,9 @@ export function createApp() {
 @Component({
     template: `
     <div>
+        <div class="router">
+            <a href="javascript:void(0)" @click="jumpTo('/router-demo/react/')">to react app</a>
+        </div>
         <div class="blogs-title">blogs</div>
         <ul>
             <li v-for="blog in blogs" :key="blog.id">
@@ -108,8 +111,11 @@ class Home extends Vue {
     get blogs() {
         return this.$store.state.blogs;
     }
+    jumpTo(url: string) {
+        common.jumpTo(url, this.$store.state);
+    }
     beforeMount() {
-        if (!common.isFirstPage()) {
+        if (!common.isFirstPage) {
             this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }
@@ -118,6 +124,10 @@ class Home extends Vue {
 @Component({
     template: `
     <div>
+        <div class="router">
+            <a href="javascript:void(0)" @click="jumpTo('/router-demo/react/')">to react app</a>
+            <router-link to="/router-demo/vue/">back to app</router-link>
+        </div>
         <div class="blog-title">blog {{blog.id}}</div>
         <div class="blog-content">{{blog.content}}</div>
         <div>posts</div>
@@ -154,8 +164,11 @@ class Blog extends Vue {
             this.$store.commit({ type: "addPost", blogId: this.blog.id, postContent: this.newPostContent });
         }
     }
+    jumpTo(url: string) {
+        common.jumpTo(url, this.$store.state);
+    }
     beforeMount() {
-        if (!common.isFirstPage()) {
+        if (!common.isFirstPage) {
             this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }
@@ -164,7 +177,11 @@ class Blog extends Vue {
 @Component({
     template: `
     <div>
-        <div><router-link :to="'/router-demo/vue/blogs/' + blog.id">back to blog</router-link></div>
+        <div class="router">
+            <a href="javascript:void(0)" @click="jumpTo('/router-demo/react/')">to react app</a>
+            <router-link to="/router-demo/vue/">back to app</router-link>
+            <router-link :to="'/router-demo/vue/blogs/' + blog.id">back to blog</router-link>
+        </div>
         <div class="post-title">post {{post.id}}</div>
         <div class="post-content">{{post.content}}</div>
     </div>
@@ -196,8 +213,11 @@ class Post extends Vue {
         }
         return null;
     }
+    jumpTo(url: string) {
+        common.jumpTo(url, this.$store.state);
+    }
     beforeMount() {
-        if (!common.isFirstPage()) {
+        if (!common.isFirstPage) {
             this.$store.dispatch<Action>({ type: "fetchBlogs" });
         }
     }
@@ -208,7 +228,6 @@ class Post extends Vue {
     <div>
         <a href="https://github.com/plantain-00/router-demo/tree/master/vue/index.ts" target="_blank">the source code of the demo</a>
         <br/>
-        <div><router-link to="/router-demo/vue/">home</router-link></div>
         <router-view></router-view>
     </div>
     `,
