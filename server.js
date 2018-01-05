@@ -90,7 +90,8 @@ server.get("/router-demo/react/*", function (req, res) { return tslib_1.__awaite
     });
 }); });
 server.get("/router-demo/vue/*", function (req, res) {
-    var app = core_2.createApp();
+    var appState = new core_2.AppState();
+    var app = core_2.createApp(appState);
     app.$router.push(req.url);
     app.$router.onReady(function () { return tslib_1.__awaiter(_this, void 0, void 0, function () {
         var matchedComponents, html, result, error_2;
@@ -105,7 +106,7 @@ server.get("/router-demo/vue/*", function (req, res) {
                     }
                     return [4 /*yield*/, Promise.all(matchedComponents.map(function (Component) {
                             if (Component.fetchData) {
-                                return Component.fetchData(app.$store);
+                                return Component.fetchData(appState);
                             }
                         }))];
                 case 1:
@@ -114,7 +115,7 @@ server.get("/router-demo/vue/*", function (req, res) {
                 case 2:
                     html = _a.sent();
                     result = vueTemplate.replace("<!--vue-ssr-outlet-->", html)
-                        .replace("<!--vue-ssr-state-->", "<script>window.__INITIAL_STATE__=" + JSON.stringify(app.$store.state) + "</script>");
+                        .replace("<!--vue-ssr-state-->", "<script>window.__INITIAL_STATE__=" + JSON.stringify(appState.$data) + "</script>");
                     res.end(result);
                     return [3 /*break*/, 4];
                 case 3:

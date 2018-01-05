@@ -1,89 +1,75 @@
 import Vue1 = require("vue");
 import Component from "vue-class-component";
 import VueRouter1 = require("vue-router");
-import Vuex1 = require("vuex");
 import * as common from "../common";
 
 // tslint:disable
 let Vue = Vue1.default;
 let VueRouter = VueRouter1.default;
-let Vuex = Vuex1.default;
 if (Vue1.default === undefined) {
     (Vue as any) = Vue1;
     (VueRouter as any) = VueRouter1;
-    (Vuex as any) = Vuex1;
 }
 // tslint:enable
 
 Vue.use(VueRouter);
-Vue.use(Vuex);
-
-type Action = {
-    type: "fetchBlogs",
-};
-type Mutation =
-    {
-        type: "initBlogs",
-        blogs: common.Blog[],
-    }
-    |
-    {
-        type: "addPost",
-        blogId: number,
-        postContent: string,
-    };
 
 export const methods: { fetchBlogs?: () => Promise<common.Blog[]> } = {};
 
-export function createApp() {
-    const store = new Vuex.Store({
-        state: {
-            blogs: [] as common.Blog[],
-            maxPostId: 0 as number,
-        },
-        actions: {
-            fetchBlogs(context) {
-                if (context.state.blogs.length > 0) {
-                    return Promise.resolve();
-                }
-                if (methods.fetchBlogs) {
-                    return methods.fetchBlogs().then(blogs => {
-                        context.commit<Mutation>({ type: "initBlogs", blogs });
-                    });
-                }
-                return Promise.resolve();
-            },
-        },
-        mutations: {
-            initBlogs(state, payload: { blogs: common.Blog[] }) {
-                state.blogs = payload.blogs;
-                state.maxPostId = Math.max(...payload.blogs.map(b => Math.max(...b.posts.map(p => p.id))));
-            },
-            addPost(state, payload: { blogId: number, postContent: string }) {
-                for (const blog of state.blogs) {
-                    if (blog.id === payload.blogId) {
-                        state.maxPostId++;
-                        blog.posts.push({
-                            id: state.maxPostId,
-                            content: payload.postContent,
-                        });
-                        return;
-                    }
-                }
-            },
-        },
-    });
+@Component
+export class AppState extends Vue {
+    static create(data?: any) {
+        const appState = new AppState();
+        if (data) {
+            appState.blogs = data.blogs;
+            appState.maxPostId = data.maxPostId;
+        }
+        return appState;
+    }
 
+    blogs: common.Blog[] = [];
+    private maxPostId = 0;
+
+    fetchBlogs() {
+        if (this.blogs.length > 0) {
+            return Promise.resolve();
+        }
+        if (methods.fetchBlogs) {
+            return methods.fetchBlogs().then(blogs => {
+                this.initBlogs(blogs);
+            });
+        }
+        return Promise.resolve();
+    }
+    addPost(blogId: number, postContent: string) {
+        for (const blog of this.blogs) {
+            if (blog.id === blogId) {
+                this.maxPostId++;
+                blog.posts.push({
+                    id: this.maxPostId,
+                    content: postContent,
+                });
+                return;
+            }
+        }
+    }
+    private initBlogs(blogs: common.Blog[]) {
+        this.blogs = blogs;
+        this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))));
+    }
+}
+
+export function createApp(appState: AppState) {
     const router = new VueRouter({
         mode: "history",
         routes: [
-            { path: "/router-demo/vue/", component: Home },
-            { path: "/router-demo/vue/blogs/:blog_id", component: Blog },
-            { path: "/router-demo/vue/blogs/:blog_id/posts/:post_id", component: Post },
+            { path: "/router-demo/vue/", component: Home, props: { appState } },
+            { path: "/router-demo/vue/blogs/:blog_id", component: Blog, props: { appState } },
+            { path: "/router-demo/vue/blogs/:blog_id/posts/:post_id", component: Post, props: { appState } },
         ],
     });
 
-    return new App({ store, router });
+    return new App({ router });
 }
 
 @Component({
@@ -100,20 +86,22 @@ export function createApp() {
         </ul>
     </div>
     `,
+    props: ["appState"],
 })
 class Home extends Vue {
-    public static fetchData(store: Vuex1.Store<any>) {
-        return store.dispatch<Action>({ type: "fetchBlogs" });
+    public static fetchData(appState: AppState) {
+        return appState.fetchBlogs();
     }
+    appState: AppState;
     get blogs() {
-        return this.$store.state.blogs;
+        return this.appState.blogs;
     }
     jumpTo(url: string) {
-        common.jumpTo(url, this.$store.state);
+        common.jumpTo(url, this.appState.$data);
     }
     beforeMount() {
         if (!common.isFirstPage) {
-            this.$store.dispatch<Action>({ type: "fetchBlogs" });
+            this.appState.fetchBlogs();
         }
     }
 }
@@ -137,17 +125,18 @@ class Home extends Vue {
         <button v-if="newPostContent" @click="addNewPost()">add new post</button>
     </div>
     `,
+    props: ["appState"],
 })
 class Blog extends Vue {
-    public static fetchData(store: Vuex1.Store<any>) {
-        return store.dispatch<Action>({ type: "fetchBlogs" });
+    public static fetchData(appState: AppState) {
+        return appState.fetchBlogs();
     }
-
+    appState: AppState;
     newPostContent = "";
 
     get blog() {
         const blogId = +this.$route.params.blog_id;
-        const blogs: common.Blog[] = this.$store.state.blogs;
+        const blogs: common.Blog[] = this.appState.blogs;
         for (const blog of blogs) {
             if (blog.id === blogId) {
                 return blog;
@@ -158,15 +147,15 @@ class Blog extends Vue {
 
     addNewPost() {
         if (this.blog) {
-            this.$store.commit({ type: "addPost", blogId: this.blog.id, postContent: this.newPostContent });
+            this.appState.addPost(this.blog.id, this.newPostContent);
         }
     }
     jumpTo(url: string) {
-        common.jumpTo(url, this.$store.state);
+        common.jumpTo(url, this.appState.$data);
     }
     beforeMount() {
         if (!common.isFirstPage) {
-            this.$store.dispatch<Action>({ type: "fetchBlogs" });
+            this.appState.fetchBlogs();
         }
     }
 }
@@ -183,15 +172,18 @@ class Blog extends Vue {
         <div class="post-content">{{post.content}}</div>
     </div>
     `,
+    props: ["appState"],
 })
 class Post extends Vue {
-    public static fetchData(store: Vuex1.Store<any>) {
-        return store.dispatch<Action>({ type: "fetchBlogs" });
+    public static fetchData(appState: AppState) {
+        return appState.fetchBlogs();
     }
+
+    appState: AppState;
 
     get blog() {
         const blogId = +this.$route.params.blog_id;
-        const blogs: common.Blog[] = this.$store.state.blogs;
+        const blogs: common.Blog[] = this.appState.blogs;
         for (const blog of blogs) {
             if (blog.id === blogId) {
                 return blog;
@@ -211,11 +203,11 @@ class Post extends Vue {
         return null;
     }
     jumpTo(url: string) {
-        common.jumpTo(url, this.$store.state);
+        common.jumpTo(url, this.appState.$data);
     }
     beforeMount() {
         if (!common.isFirstPage) {
-            this.$store.dispatch<Action>({ type: "fetchBlogs" });
+            this.appState.fetchBlogs();
         }
     }
 }

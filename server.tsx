@@ -1,5 +1,5 @@
-import { Main, AppState, methods as reactMethods, routes, isServerSide } from "./react/core";
-import { createApp, methods as vueMethods } from "./vue/core";
+import { Main, AppState as ReactAppState, methods as reactMethods, routes, isServerSide } from "./react/core";
+import { createApp, methods as vueMethods, AppState as VueAppState } from "./vue/core";
 
 import express = require("express");
 import * as fs from "fs";
@@ -47,7 +47,7 @@ reactMethods.fetchBlogs = () => Promise.resolve(JSON.parse(JSON.stringify(blogs)
 vueMethods.fetchBlogs = () => Promise.resolve(JSON.parse(JSON.stringify(blogs)));
 
 server.get("/router-demo/react/*", async (req, res) => {
-    const appState = new AppState();
+    const appState = new ReactAppState();
 
     try {
         const matchedRouters = routes.filter(r => matchPath(req.url, r));
@@ -77,7 +77,8 @@ server.get("/router-demo/react/*", async (req, res) => {
 });
 
 server.get("/router-demo/vue/*", (req, res) => {
-    const app = createApp();
+    const appState = new VueAppState();
+    const app = createApp(appState);
     app.$router.push(req.url);
     app.$router.onReady(async () => {
         try {
@@ -88,12 +89,12 @@ server.get("/router-demo/vue/*", (req, res) => {
             }
             await Promise.all(matchedComponents.map(Component => {
                 if ((Component as any).fetchData) {
-                    return (Component as any).fetchData(app.$store);
+                    return (Component as any).fetchData(appState);
                 }
             }));
             const html = await renderer.renderToString(app);
             const result = vueTemplate.replace(`<!--vue-ssr-outlet-->`, html)
-                .replace(`<!--vue-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(app.$store.state)}</script>`);
+                .replace(`<!--vue-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(appState.$data)}</script>`);
             res.end(result);
         } catch (error) {
             // tslint:disable-next-line:no-console
