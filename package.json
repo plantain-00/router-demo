@@ -22,7 +22,7 @@
   "homepage": "https://github.com/plantain-00/router-demo#readme",
   "devDependencies": {
     "@commitlint/cli": "5.2.8",
-    "@commitlint/config-angular": "5.1.1",
+    "@commitlint/config-conventional": "6.0.2",
     "@types/express": "4.11.0",
     "@types/jasmine": "2.8.3",
     "@types/puppeteer": "0.13.9",
