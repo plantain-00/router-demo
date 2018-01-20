@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isFirstPage = false;
-var storeKey = "router-demo:__INITIAL_STATE__";
+var storeKey = 'router-demo:__INITIAL_STATE__';
 function jumpTo(url, state) {
     localStorage.setItem(storeKey, JSON.stringify(state));
     location.href = url;

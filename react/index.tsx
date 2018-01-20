@@ -1,17 +1,17 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { Provider } from "mobx-react";
-import { BrowserRouter } from "react-router-dom";
-import * as common from "../common";
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { Provider } from 'mobx-react'
+import { BrowserRouter } from 'react-router-dom'
+import * as common from '../common'
 
-import { Main, AppState, methods } from "./core";
+import { Main, AppState, methods } from './core'
 
-methods.fetchBlogs = () => fetch("/router-demo/blogs.json").then(response => response.json());
+methods.fetchBlogs = () => fetch('/router-demo/blogs.json').then(response => response.json())
 
-const initialState = common.getInitialState();
+const initialState = common.getInitialState()
 // tslint:disable-next-line:no-console
-console.log({ initialState });
-const appState = new AppState(initialState);
+console.log({ initialState })
+const appState = new AppState(initialState)
 
 ReactDOM.render(
     <BrowserRouter>
@@ -19,4 +19,4 @@ ReactDOM.render(
             <Main />
         </Provider>
     </BrowserRouter>,
-    document.getElementById("container"));
+    document.getElementById('container'))

@@ -41,7 +41,7 @@ var AppState = /** @class */ (function () {
                 this.maxPostId++;
                 blog.posts.push({
                     id: this.maxPostId,
-                    content: postContent,
+                    content: postContent
                 });
                 return;
             }
@@ -85,14 +85,14 @@ var Home = /** @class */ (function (_super) {
     Home.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", null,
-            React.createElement("div", { className: "router" },
-                React.createElement("a", { href: "javascript:void(0)", onClick: function () { return common.jumpTo("/router-demo/vue/", _this.props.appState); } }, "to vue app")),
-            React.createElement("div", { className: "blogs-title" }, "blogs"),
+            React.createElement("div", { className: 'router' },
+                React.createElement("a", { href: 'javascript:void(0)', onClick: function () { return common.jumpTo('/router-demo/vue/', _this.props.appState); } }, "to vue app")),
+            React.createElement("div", { className: 'blogs-title' }, "blogs"),
             React.createElement("ul", null, this.props.appState.blogs.map(function (blog) { return React.createElement("li", { key: blog.id },
-                React.createElement(react_router_dom_1.Link, { to: "/router-demo/react/blogs/" + blog.id }, blog.content)); }))));
+                React.createElement(react_router_dom_1.Link, { to: '/router-demo/react/blogs/' + blog.id }, blog.content)); }))));
     };
     Home = tslib_1.__decorate([
-        mobx_react_1.inject("appState"),
+        mobx_react_1.inject('appState'),
         mobx_react_1.observer
     ], Home);
     return Home;
@@ -101,7 +101,7 @@ var Blog = /** @class */ (function (_super) {
     tslib_1.__extends(Blog, _super);
     function Blog() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.newPostContent = "";
+        _this.newPostContent = '';
         return _this;
     }
     Blog.fetchData = function (appState) {
@@ -131,19 +131,19 @@ var Blog = /** @class */ (function (_super) {
         if (!this.blog) {
             return null;
         }
-        var newPostContentButton = this.newPostContent ? React.createElement("button", { "v-if": "newPostContent", onClick: function () { return _this.addNewPost(); } }, "add new post") : null;
+        var newPostContentButton = this.newPostContent ? React.createElement("button", { "v-if": 'newPostContent', onClick: function () { return _this.addNewPost(); } }, "add new post") : null;
         var posts = this.blog.posts.map(function (post) {
             return (React.createElement("li", { key: post.id },
-                React.createElement(react_router_dom_1.Link, { to: "/router-demo/react/blogs/" + _this.blog.id + "/posts/" + post.id }, post.content)));
+                React.createElement(react_router_dom_1.Link, { to: '/router-demo/react/blogs/' + _this.blog.id + '/posts/' + post.id }, post.content)));
         });
         return (React.createElement("div", null,
-            React.createElement("div", { className: "router" },
-                React.createElement("a", { href: "javascript:void(0)", onClick: function () { return common.jumpTo("/router-demo/vue/", _this.props.appState); } }, "to vue app"),
-                React.createElement(react_router_dom_1.Link, { to: "/router-demo/react/" }, "back to app")),
-            React.createElement("div", { className: "blog-title" },
+            React.createElement("div", { className: 'router' },
+                React.createElement("a", { href: 'javascript:void(0)', onClick: function () { return common.jumpTo('/router-demo/vue/', _this.props.appState); } }, "to vue app"),
+                React.createElement(react_router_dom_1.Link, { to: '/router-demo/react/' }, "back to app")),
+            React.createElement("div", { className: 'blog-title' },
                 "blog ",
                 this.blog.id),
-            React.createElement("div", { className: "blog-content" }, this.blog.content),
+            React.createElement("div", { className: 'blog-content' }, this.blog.content),
             React.createElement("div", null, "posts"),
             React.createElement("ul", null, posts),
             React.createElement("input", { defaultValue: this.newPostContent, onChange: function (e) { return _this.setNewPostContent(e.target.value); } }),
@@ -159,7 +159,7 @@ var Blog = /** @class */ (function (_super) {
         this.setState({ newPostContent: this.newPostContent });
     };
     Blog = tslib_1.__decorate([
-        mobx_react_1.inject("appState"),
+        mobx_react_1.inject('appState'),
         mobx_react_1.observer
     ], Blog);
     return Blog;
@@ -213,37 +213,37 @@ var Post = /** @class */ (function (_super) {
             return null;
         }
         return (React.createElement("div", null,
-            React.createElement("div", { className: "router" },
-                React.createElement("a", { href: "javascript:void(0)", onClick: function () { return common.jumpTo("/router-demo/vue/", _this.props.appState); } }, "to vue app"),
-                React.createElement(react_router_dom_1.Link, { to: "/router-demo/react/" }, "back to app"),
-                React.createElement(react_router_dom_1.Link, { to: "/router-demo/react/blogs/" + this.blog.id }, "back to blog")),
-            React.createElement("div", { className: "post-title" },
+            React.createElement("div", { className: 'router' },
+                React.createElement("a", { href: 'javascript:void(0)', onClick: function () { return common.jumpTo('/router-demo/vue/', _this.props.appState); } }, "to vue app"),
+                React.createElement(react_router_dom_1.Link, { to: '/router-demo/react/' }, "back to app"),
+                React.createElement(react_router_dom_1.Link, { to: '/router-demo/react/blogs/' + this.blog.id }, "back to blog")),
+            React.createElement("div", { className: 'post-title' },
                 "post ",
                 this.post.id),
-            React.createElement("div", { className: "post-content" }, this.post.content)));
+            React.createElement("div", { className: 'post-content' }, this.post.content)));
     };
     Post = tslib_1.__decorate([
-        mobx_react_1.inject("appState"),
+        mobx_react_1.inject('appState'),
         mobx_react_1.observer
     ], Post);
     return Post;
 }(React.Component));
 exports.routes = [
     {
-        path: "/router-demo/react/",
+        path: '/router-demo/react/',
         component: Home,
-        exact: true,
+        exact: true
     },
     {
-        path: "/router-demo/react/blogs/:blog_id",
+        path: '/router-demo/react/blogs/:blog_id',
         component: Blog,
-        exact: true,
+        exact: true
     },
     {
-        path: "/router-demo/react/blogs/:blog_id/posts/:post_id",
+        path: '/router-demo/react/blogs/:blog_id/posts/:post_id',
         component: Post,
-        exact: true,
-    },
+        exact: true
+    }
 ];
 var Main = /** @class */ (function (_super) {
     tslib_1.__extends(Main, _super);
@@ -252,7 +252,7 @@ var Main = /** @class */ (function (_super) {
     }
     Main.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement("a", { href: "https://github.com/plantain-00/router-demo/tree/master/react/index.ts", target: "_blank" }, "the source code of the demo"),
+            React.createElement("a", { href: 'https://github.com/plantain-00/router-demo/tree/master/react/index.ts', target: '_blank' }, "the source code of the demo"),
             React.createElement("br", null),
             exports.routes.map(function (route) { return (React.createElement(react_router_dom_1.Route, tslib_1.__assign({ key: route.path }, route))); })));
     };

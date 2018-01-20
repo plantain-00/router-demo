@@ -51,7 +51,7 @@ var AppState = /** @class */ (function (_super) {
                 this.maxPostId++;
                 blog.posts.push({
                     id: this.maxPostId,
-                    content: postContent,
+                    content: postContent
                 });
                 return;
             }
@@ -70,12 +70,12 @@ var AppState = /** @class */ (function (_super) {
 exports.AppState = AppState;
 function createApp(appState) {
     var router = new VueRouter({
-        mode: "history",
+        mode: 'history',
         routes: [
-            { path: "/router-demo/vue/", component: Home, props: { appState: appState } },
-            { path: "/router-demo/vue/blogs/:blog_id", component: Blog, props: { appState: appState } },
-            { path: "/router-demo/vue/blogs/:blog_id/posts/:post_id", component: Post, props: { appState: appState } },
-        ],
+            { path: '/router-demo/vue/', component: Home, props: { appState: appState } },
+            { path: '/router-demo/vue/blogs/:blog_id', component: Blog, props: { appState: appState } },
+            { path: '/router-demo/vue/blogs/:blog_id/posts/:post_id', component: Post, props: { appState: appState } }
+        ]
     });
     return new App({ router: router });
 }
@@ -106,7 +106,7 @@ var Home = /** @class */ (function (_super) {
     Home = tslib_1.__decorate([
         vue_class_component_1.default({
             template: "\n    <div>\n        <div class=\"router\">\n            <a href=\"javascript:void(0)\" @click=\"jumpTo('/router-demo/react/')\">to react app</a>\n        </div>\n        <div class=\"blogs-title\">blogs</div>\n        <ul>\n            <li v-for=\"blog in blogs\" :key=\"blog.id\">\n                <router-link :to=\"'/router-demo/vue/blogs/' + blog.id\">{{blog.content}}</router-link>\n            </li>\n        </ul>\n    </div>\n    ",
-            props: ["appState"],
+            props: ['appState']
         })
     ], Home);
     return Home;
@@ -115,7 +115,7 @@ var Blog = /** @class */ (function (_super) {
     tslib_1.__extends(Blog, _super);
     function Blog() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.newPostContent = "";
+        _this.newPostContent = '';
         return _this;
     }
     Blog.fetchData = function (appState) {
@@ -152,7 +152,7 @@ var Blog = /** @class */ (function (_super) {
     Blog = tslib_1.__decorate([
         vue_class_component_1.default({
             template: "\n    <div>\n        <div class=\"router\">\n            <a href=\"javascript:void(0)\" @click=\"jumpTo('/router-demo/react/')\">to react app</a>\n            <router-link to=\"/router-demo/vue/\">back to app</router-link>\n        </div>\n        <div class=\"blog-title\">blog {{blog.id}}</div>\n        <div class=\"blog-content\">{{blog.content}}</div>\n        <div>posts</div>\n        <ul>\n            <li v-for=\"post in blog.posts\" :key=\"post.id\">\n                <router-link :to=\"'/router-demo/vue/blogs/' + blog.id + '/posts/' + post.id\">{{post.content}}</router-link>\n            </li>\n        </ul>\n        <input v-model=\"newPostContent\" />\n        <button v-if=\"newPostContent\" @click=\"addNewPost()\">add new post</button>\n    </div>\n    ",
-            props: ["appState"],
+            props: ['appState']
         })
     ], Blog);
     return Blog;
@@ -207,7 +207,7 @@ var Post = /** @class */ (function (_super) {
     Post = tslib_1.__decorate([
         vue_class_component_1.default({
             template: "\n    <div>\n        <div class=\"router\">\n            <a href=\"javascript:void(0)\" @click=\"jumpTo('/router-demo/react/')\">to react app</a>\n            <router-link to=\"/router-demo/vue/\">back to app</router-link>\n            <router-link :to=\"'/router-demo/vue/blogs/' + blog.id\">back to blog</router-link>\n        </div>\n        <div class=\"post-title\">post {{post.id}}</div>\n        <div class=\"post-content\">{{post.content}}</div>\n    </div>\n    ",
-            props: ["appState"],
+            props: ['appState']
         })
     ], Post);
     return Post;
@@ -219,7 +219,7 @@ var App = /** @class */ (function (_super) {
     }
     App = tslib_1.__decorate([
         vue_class_component_1.default({
-            template: "\n    <div>\n        <a href=\"https://github.com/plantain-00/router-demo/tree/master/vue/index.ts\" target=\"_blank\">the source code of the demo</a>\n        <br/>\n        <router-view></router-view>\n    </div>\n    ",
+            template: "\n    <div>\n        <a href=\"https://github.com/plantain-00/router-demo/tree/master/vue/index.ts\" target=\"_blank\">the source code of the demo</a>\n        <br/>\n        <router-view></router-view>\n    </div>\n    "
         })
     ], App);
     return App;

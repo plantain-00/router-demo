@@ -16,16 +16,16 @@ var readFileAsync = util.promisify(fs.readFile);
 var server = express();
 core_1.isServerSide();
 var renderer = vueServerRenderer.createRenderer();
-var reactTemplate = fs.readFileSync("./react/index.html").toString();
-var vueTemplate = fs.readFileSync("./vue/index.html").toString();
-var blogs = JSON.parse(fs.readFileSync("./blogs.json").toString());
-server.get("/router-demo/blogs.json", function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+var reactTemplate = fs.readFileSync('./react/index.html').toString();
+var vueTemplate = fs.readFileSync('./vue/index.html').toString();
+var blogs = JSON.parse(fs.readFileSync('./blogs.json').toString());
+server.get('/router-demo/blogs.json', function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
     return tslib_1.__generator(this, function (_a) {
         res.json(blogs).end();
         return [2 /*return*/];
     });
 }); });
-server.get("/router-demo/:name.css", function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+server.get('/router-demo/:name.css', function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
     var buffer;
     return tslib_1.__generator(this, function (_a) {
         switch (_a.label) {
@@ -37,7 +37,7 @@ server.get("/router-demo/:name.css", function (req, res) { return tslib_1.__awai
         }
     });
 }); });
-server.get("/router-demo/:type/:name.js", function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+server.get('/router-demo/:type/:name.js', function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
     var buffer;
     return tslib_1.__generator(this, function (_a) {
         switch (_a.label) {
@@ -51,7 +51,7 @@ server.get("/router-demo/:type/:name.js", function (req, res) { return tslib_1._
 }); });
 core_1.methods.fetchBlogs = function () { return Promise.resolve(JSON.parse(JSON.stringify(blogs))); };
 core_2.methods.fetchBlogs = function () { return Promise.resolve(JSON.parse(JSON.stringify(blogs))); };
-server.get("/router-demo/react/*", function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+server.get('/router-demo/react/*', function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
     var appState, matchedRouters, html, result, error_1;
     return tslib_1.__generator(this, function (_a) {
         switch (_a.label) {
@@ -89,7 +89,7 @@ server.get("/router-demo/react/*", function (req, res) { return tslib_1.__awaite
         }
     });
 }); });
-server.get("/router-demo/vue/*", function (req, res) {
+server.get('/router-demo/vue/*', function (req, res) {
     var appState = new core_2.AppState();
     var app = core_2.createApp(appState);
     app.$router.push(req.url);
