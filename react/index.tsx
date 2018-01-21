@@ -9,7 +9,6 @@ import { Main, AppState, methods } from './core'
 methods.fetchBlogs = () => fetch('/router-demo/blogs.json').then(response => response.json())
 
 const initialState = common.getInitialState()
-// tslint:disable-next-line:no-console
 console.log({ initialState })
 const appState = new AppState(initialState)
 

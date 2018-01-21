@@ -70,7 +70,6 @@ server.get('/router-demo/react/*', async (req, res) => {
             .replace(`<!--react-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(appState)}</script>`)
     res.end(result)
   } catch (error) {
-        // tslint:disable-next-line:no-console
     console.log(error)
     res.status(500).end()
   }
@@ -97,7 +96,6 @@ server.get('/router-demo/vue/*', (req, res) => {
                 .replace(`<!--vue-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(appState.$data)}</script>`)
       res.end(result)
     } catch (error) {
-            // tslint:disable-next-line:no-console
       console.log(error)
       res.status(500).end()
     }

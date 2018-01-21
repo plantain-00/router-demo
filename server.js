@@ -81,7 +81,6 @@ server.get('/router-demo/react/*', function (req, res) { return tslib_1.__awaite
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _a.sent();
-                // tslint:disable-next-line:no-console
                 console.log(error_1);
                 res.status(500).end();
                 return [3 /*break*/, 4];
@@ -120,7 +119,6 @@ server.get('/router-demo/vue/*', function (req, res) {
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
-                    // tslint:disable-next-line:no-console
                     console.log(error_2);
                     res.status(500).end();
                     return [3 /*break*/, 4];
