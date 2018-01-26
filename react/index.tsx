@@ -13,9 +13,9 @@ console.log({ initialState })
 const appState = new AppState(initialState)
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider appState={appState}>
-            <Main />
-        </Provider>
-    </BrowserRouter>,
-    document.getElementById('container'))
+  <BrowserRouter>
+    <Provider appState={appState}>
+      <Main />
+    </Provider>
+  </BrowserRouter>,
+  document.getElementById('container'))

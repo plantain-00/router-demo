@@ -14,9 +14,9 @@ export function isServerSide () {
 
 export class AppState {
   @observable
-    blogs: common.Blog[] = []
+  blogs: common.Blog[] = []
   @observable
-    private maxPostId = 0
+  private maxPostId = 0
 
   constructor (appState?: AppState) {
     if (appState) {
@@ -26,7 +26,7 @@ export class AppState {
   }
 
   @action
-    fetchBlogs () {
+  fetchBlogs () {
     if (this.blogs.length > 0) {
       return Promise.resolve()
     }
@@ -38,7 +38,7 @@ export class AppState {
     return Promise.resolve()
   }
   @action
-    addPost (blogId: number, postContent: string) {
+  addPost (blogId: number, postContent: string) {
     for (const blog of this.blogs) {
       if (blog.id === blogId) {
         this.maxPostId++
@@ -51,7 +51,7 @@ export class AppState {
     }
   }
   @action
-    private initBlogs (blogs: common.Blog[]) {
+  private initBlogs (blogs: common.Blog[]) {
     this.blogs = blogs
     this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
   }
@@ -70,15 +70,15 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
   }
   render () {
     return (
-            <div>
-                <div className='router'>
-                    <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
-                </div>
-                <div className='blogs-title'>blogs</div>
-                <ul>
-                    {this.props.appState.blogs.map(blog => <li key={blog.id}><Link to={'/router-demo/react/blogs/' + blog.id}>{blog.content}</Link></li>)}
-                </ul>
-            </div>
+      <div>
+        <div className='router'>
+          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
+        </div>
+        <div className='blogs-title'>blogs</div>
+        <ul>
+          {this.props.appState.blogs.map(blog => <li key={blog.id}><Link to={'/router-demo/react/blogs/' + blog.id}>{blog.content}</Link></li>)}
+        </ul>
+      </div>
     )
   }
 }
@@ -114,26 +114,26 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
     const newPostContentButton = this.newPostContent ? <button v-if='newPostContent' onClick={() => this.addNewPost()}>add new post</button> : null
     const posts = this.blog.posts.map(post => {
       return (
-                <li key={post.id}>
-                    <Link to={'/router-demo/react/blogs/' + this.blog!.id + '/posts/' + post.id}>{post.content}</Link>
-                </li>
+        <li key={post.id}>
+          <Link to={'/router-demo/react/blogs/' + this.blog!.id + '/posts/' + post.id}>{post.content}</Link>
+        </li>
       )
     })
     return (
-            <div>
-                <div className='router'>
-                    <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
-                    <Link to='/router-demo/react/'>back to app</Link>
-                </div>
-                <div className='blog-title'>blog {this.blog.id}</div>
-                <div className='blog-content'>{this.blog.content}</div>
-                <div>posts</div>
-                <ul>
-                    {posts}
-                </ul>
-                <input defaultValue={this.newPostContent} onChange={e => this.setNewPostContent(e.target.value)} />
-                {newPostContentButton}
-            </div >
+      <div>
+        <div className='router'>
+          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
+          <Link to='/router-demo/react/'>back to app</Link>
+        </div>
+        <div className='blog-title'>blog {this.blog.id}</div>
+        <div className='blog-content'>{this.blog.content}</div>
+        <div>posts</div>
+        <ul>
+          {posts}
+        </ul>
+        <input defaultValue={this.newPostContent} onChange={e => this.setNewPostContent(e.target.value)} />
+        {newPostContentButton}
+      </div >
     )
   }
 
@@ -188,15 +188,15 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
       return null
     }
     return (
-            <div>
-                <div className='router'>
-                    <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
-                    <Link to='/router-demo/react/'>back to app</Link>
-                    <Link to={'/router-demo/react/blogs/' + this.blog.id}>back to blog</Link>
-                </div>
-                <div className='post-title'>post {this.post.id}</div>
-                <div className='post-content'>{this.post.content}</div>
-            </div >
+      <div>
+        <div className='router'>
+          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
+          <Link to='/router-demo/react/'>back to app</Link>
+          <Link to={'/router-demo/react/blogs/' + this.blog.id}>back to blog</Link>
+        </div>
+        <div className='post-title'>post {this.post.id}</div>
+        <div className='post-content'>{this.post.content}</div>
+      </div >
     )
   }
 }
@@ -222,13 +222,13 @@ export const routes: RouteProps[] = [
 export class Main extends React.Component<{}, {}> {
   render () {
     return (
-            <div>
-                <a href='https://github.com/plantain-00/router-demo/tree/master/react/index.ts' target='_blank'>the source code of the demo</a>
-                <br />
-                {routes.map(route => (
-                    <Route key={route.path} {...route} />
-                ))}
-            </div>
+      <div>
+        <a href='https://github.com/plantain-00/router-demo/tree/master/react/index.ts' target='_blank'>the source code of the demo</a>
+        <br />
+        {routes.map(route => (
+          <Route key={route.path} {...route} />
+        ))}
+      </div>
     )
   }
 }
