@@ -1,19 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
-var Vue1 = require("vue");
-var vue_class_component_1 = require("vue-class-component");
-var VueRouter1 = require("vue-router");
-var common = require("../common");
-// tslint:disable
-var Vue = Vue1.default;
-var VueRouter = VueRouter1.default;
-if (Vue1.default === undefined) {
-    Vue = Vue1;
-    VueRouter = VueRouter1;
-}
-// tslint:enable
-Vue.use(VueRouter);
+var vue_1 = tslib_1.__importDefault(require("vue"));
+var vue_class_component_1 = tslib_1.__importDefault(require("vue-class-component"));
+var vue_router_1 = tslib_1.__importDefault(require("vue-router"));
+var common = tslib_1.__importStar(require("../common"));
+vue_1.default.use(vue_router_1.default);
 exports.methods = {};
 var AppState = /** @class */ (function (_super) {
     tslib_1.__extends(AppState, _super);
@@ -66,10 +58,10 @@ var AppState = /** @class */ (function (_super) {
     ], AppState);
     return AppState;
     var AppState_1;
-}(Vue));
+}(vue_1.default));
 exports.AppState = AppState;
 function createApp(appState) {
-    var router = new VueRouter({
+    var router = new vue_router_1.default({
         mode: 'history',
         routes: [
             { path: '/router-demo/vue/', component: Home, props: { appState: appState } },
@@ -110,7 +102,7 @@ var Home = /** @class */ (function (_super) {
         })
     ], Home);
     return Home;
-}(Vue));
+}(vue_1.default));
 var Blog = /** @class */ (function (_super) {
     tslib_1.__extends(Blog, _super);
     function Blog() {
@@ -156,7 +148,7 @@ var Blog = /** @class */ (function (_super) {
         })
     ], Blog);
     return Blog;
-}(Vue));
+}(vue_1.default));
 var Post = /** @class */ (function (_super) {
     tslib_1.__extends(Post, _super);
     function Post() {
@@ -211,7 +203,7 @@ var Post = /** @class */ (function (_super) {
         })
     ], Post);
     return Post;
-}(Vue));
+}(vue_1.default));
 var App = /** @class */ (function (_super) {
     tslib_1.__extends(App, _super);
     function App() {
@@ -223,4 +215,4 @@ var App = /** @class */ (function (_super) {
         })
     ], App);
     return App;
-}(Vue));
+}(vue_1.default));

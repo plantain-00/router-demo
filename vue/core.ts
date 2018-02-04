@@ -1,16 +1,7 @@
-import Vue1 = require('vue')
+import Vue from 'vue'
 import Component from 'vue-class-component'
-import VueRouter1 = require('vue-router')
+import VueRouter from 'vue-router'
 import * as common from '../common'
-
-// tslint:disable
-let Vue = Vue1.default;
-let VueRouter = VueRouter1.default;
-if (Vue1.default === undefined) {
-    (Vue as any) = Vue1;
-    (VueRouter as any) = VueRouter1;
-}
-// tslint:enable
 
 Vue.use(VueRouter)
 
@@ -89,7 +80,7 @@ export function createApp (appState: AppState) {
   props: ['appState']
 })
 class Home extends Vue {
-  appState: AppState
+  appState!: AppState
   public static fetchData (appState: AppState) {
     return appState.fetchBlogs()
   }
@@ -128,7 +119,7 @@ class Home extends Vue {
   props: ['appState']
 })
 class Blog extends Vue {
-  appState: AppState
+  appState!: AppState
   newPostContent = ''
   public static fetchData (appState: AppState) {
     return appState.fetchBlogs()
@@ -175,7 +166,7 @@ class Blog extends Vue {
   props: ['appState']
 })
 class Post extends Vue {
-  appState: AppState
+  appState!: AppState
   public static fetchData (appState: AppState) {
     return appState.fetchBlogs()
   }

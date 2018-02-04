@@ -18,6 +18,7 @@
         "jsx": "react",
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
-        "newLine": "LF"
+        "newLine": "LF",
+        "esModuleInterop": true
     }
 }

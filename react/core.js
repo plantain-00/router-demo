@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
-var React = require("react");
+var React = tslib_1.__importStar(require("react"));
 var react_router_dom_1 = require("react-router-dom");
 var mobx_1 = require("mobx");
 var mobx_react_1 = require("mobx-react");
-var common = require("../common");
+var common = tslib_1.__importStar(require("../common"));
 mobx_1.useStrict(true);
 exports.methods = {};
 var isClientSide = true;
