@@ -1,7 +1,7 @@
 import { Main, AppState as ReactAppState, methods as reactMethods, routes, isServerSide } from './react/core'
 import { createApp, methods as vueMethods, AppState as VueAppState } from './vue/core'
 
-import express = require('express')
+import express from 'express'
 import * as fs from 'fs'
 import * as util from 'util'
 

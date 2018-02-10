@@ -35,36 +35,57 @@ var AppState = /** @class */ (function () {
         return Promise.resolve();
     };
     AppState.prototype.addPost = function (blogId, postContent) {
-        for (var _i = 0, _a = this.blogs; _i < _a.length; _i++) {
-            var blog = _a[_i];
-            if (blog.id === blogId) {
-                this.maxPostId++;
-                blog.posts.push({
-                    id: this.maxPostId,
-                    content: postContent
-                });
-                return;
+        try {
+            for (var _a = tslib_1.__values(this.blogs), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var blog = _b.value;
+                if (blog.id === blogId) {
+                    this.maxPostId++;
+                    blog.posts.push({
+                        id: this.maxPostId,
+                        content: postContent
+                    });
+                    return;
+                }
             }
         }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        var e_1, _c;
     };
     AppState.prototype.initBlogs = function (blogs) {
         this.blogs = blogs;
-        this.maxPostId = Math.max.apply(Math, blogs.map(function (b) { return Math.max.apply(Math, b.posts.map(function (p) { return p.id; })); }));
+        this.maxPostId = Math.max.apply(Math, tslib_1.__spread(blogs.map(function (b) { return Math.max.apply(Math, tslib_1.__spread(b.posts.map(function (p) { return p.id; }))); })));
     };
     tslib_1.__decorate([
-        mobx_1.observable
+        mobx_1.observable,
+        tslib_1.__metadata("design:type", Array)
     ], AppState.prototype, "blogs", void 0);
     tslib_1.__decorate([
-        mobx_1.observable
+        mobx_1.observable,
+        tslib_1.__metadata("design:type", Object)
     ], AppState.prototype, "maxPostId", void 0);
     tslib_1.__decorate([
-        mobx_1.action
+        mobx_1.action,
+        tslib_1.__metadata("design:type", Function),
+        tslib_1.__metadata("design:paramtypes", []),
+        tslib_1.__metadata("design:returntype", void 0)
     ], AppState.prototype, "fetchBlogs", null);
     tslib_1.__decorate([
-        mobx_1.action
+        mobx_1.action,
+        tslib_1.__metadata("design:type", Function),
+        tslib_1.__metadata("design:paramtypes", [Number, String]),
+        tslib_1.__metadata("design:returntype", void 0)
     ], AppState.prototype, "addPost", null);
     tslib_1.__decorate([
-        mobx_1.action
+        mobx_1.action,
+        tslib_1.__metadata("design:type", Function),
+        tslib_1.__metadata("design:paramtypes", [Array]),
+        tslib_1.__metadata("design:returntype", void 0)
     ], AppState.prototype, "initBlogs", null);
     return AppState;
 }());
@@ -110,13 +131,23 @@ var Blog = /** @class */ (function (_super) {
     Object.defineProperty(Blog.prototype, "blog", {
         get: function () {
             var blogId = +this.props.match.params.blog_id;
-            for (var _i = 0, _a = this.props.appState.blogs; _i < _a.length; _i++) {
-                var blog = _a[_i];
-                if (blog.id === blogId) {
-                    return blog;
+            try {
+                for (var _a = tslib_1.__values(this.props.appState.blogs), _b = _a.next(); !_b.done; _b = _a.next()) {
+                    var blog = _b.value;
+                    if (blog.id === blogId) {
+                        return blog;
+                    }
                 }
             }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
             return null;
+            var e_2, _c;
         },
         enumerable: true,
         configurable: true
@@ -175,13 +206,23 @@ var Post = /** @class */ (function (_super) {
     Object.defineProperty(Post.prototype, "blog", {
         get: function () {
             var blogId = +this.props.match.params.blog_id;
-            for (var _i = 0, _a = this.props.appState.blogs; _i < _a.length; _i++) {
-                var blog = _a[_i];
-                if (blog.id === blogId) {
-                    return blog;
+            try {
+                for (var _a = tslib_1.__values(this.props.appState.blogs), _b = _a.next(); !_b.done; _b = _a.next()) {
+                    var blog = _b.value;
+                    if (blog.id === blogId) {
+                        return blog;
+                    }
                 }
             }
+            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            finally {
+                try {
+                    if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                }
+                finally { if (e_3) throw e_3.error; }
+            }
             return null;
+            var e_3, _c;
         },
         enumerable: true,
         configurable: true
@@ -190,14 +231,24 @@ var Post = /** @class */ (function (_super) {
         get: function () {
             var postId = +this.props.match.params.post_id;
             if (this.blog) {
-                for (var _i = 0, _a = this.blog.posts; _i < _a.length; _i++) {
-                    var post = _a[_i];
-                    if (post.id === postId) {
-                        return post;
+                try {
+                    for (var _a = tslib_1.__values(this.blog.posts), _b = _a.next(); !_b.done; _b = _a.next()) {
+                        var post = _b.value;
+                        if (post.id === postId) {
+                            return post;
+                        }
                     }
+                }
+                catch (e_4_1) { e_4 = { error: e_4_1 }; }
+                finally {
+                    try {
+                        if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                    }
+                    finally { if (e_4) throw e_4.error; }
                 }
             }
             return null;
+            var e_4, _c;
         },
         enumerable: true,
         configurable: true
