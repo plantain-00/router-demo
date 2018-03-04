@@ -4,6 +4,7 @@ module.exports = {
     react: './react/index'
   },
   output: {
+    path: __dirname,
     filename: '[name]/index.min.js'
   },
   resolve: {
