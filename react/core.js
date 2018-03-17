@@ -6,7 +6,7 @@ var react_router_dom_1 = require("react-router-dom");
 var mobx_1 = require("mobx");
 var mobx_react_1 = require("mobx-react");
 var common = tslib_1.__importStar(require("../common"));
-mobx_1.useStrict(true);
+mobx_1.configure({ enforceActions: true });
 exports.methods = {};
 var isClientSide = true;
 function isServerSide() {
