@@ -1,4 +1,4 @@
-const { Service, checkGitStatus } = require('clean-scripts')
+const { Service } = require('clean-scripts')
 
 const tsFiles = `"*.ts" "*.tsx" "vue/**/*.ts" "react/**/*.tsx" "spec/**/*.ts" "screenshots/**/*.ts"`
 const jsFiles = `"*.config.js" "spec/**/*.config.js"`
@@ -8,6 +8,8 @@ const tscCommand = `tsc`
 const webpackCommand = `webpack`
 const revStaticCommand = `rev-static`
 
+const isDev = process.env.NODE_ENV === 'development'
+
 module.exports = {
   build: [
     `rimraf "**/@(index.min-*.js|index.min-*.css)"`,
@@ -16,7 +18,7 @@ module.exports = {
         tscCommand,
         webpackCommand
       ],
-      css: [
+      css: isDev ? undefined : [
         `lessc index.less > index.css`,
         `postcss index.css -o index.css`,
         `cleancss index.css -o index.min.css`
@@ -34,8 +36,7 @@ module.exports = {
   },
   test: [
     'tsc -p spec',
-    'karma start spec/karma.config.js',
-    () => checkGitStatus()
+    'karma start spec/karma.config.js'
   ],
   fix: {
     ts: `tslint --fix ${tsFiles}`,
