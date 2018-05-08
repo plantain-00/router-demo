@@ -13,12 +13,12 @@ export let isFirstPage = false
 
 const storeKey = 'router-demo:__INITIAL_STATE__'
 
-export function jumpTo (url: string, state: any) {
+export function jumpTo(url: string, state: any) {
   localStorage.setItem(storeKey, JSON.stringify(state))
   location.href = url
 }
 
-export function getInitialState () {
+export function getInitialState() {
   const storeString = localStorage.getItem(storeKey)
   if (storeString) {
     localStorage.removeItem(storeKey);

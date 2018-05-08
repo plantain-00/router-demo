@@ -6,9 +6,11 @@ import * as common from '../common'
 
 configure({ enforceActions: true })
 
+// tslint:disable:no-duplicate-string
+
 export const methods: { fetchBlogs?: () => Promise<common.Blog[]> } = {}
 let isClientSide = true
-export function isServerSide () {
+export function isServerSide() {
   isClientSide = false
 }
 
@@ -18,7 +20,7 @@ export class AppState {
   @observable
   private maxPostId = 0
 
-  constructor (appState?: AppState) {
+  constructor(appState?: AppState) {
     if (appState) {
       this.blogs = appState.blogs
       this.maxPostId = appState.maxPostId
@@ -26,7 +28,7 @@ export class AppState {
   }
 
   @action
-  fetchBlogs () {
+  fetchBlogs() {
     if (this.blogs.length > 0) {
       return Promise.resolve()
     }
@@ -38,7 +40,7 @@ export class AppState {
     return Promise.resolve()
   }
   @action
-  addPost (blogId: number, postContent: string) {
+  addPost(blogId: number, postContent: string) {
     for (const blog of this.blogs) {
       if (blog.id === blogId) {
         this.maxPostId++
@@ -51,7 +53,7 @@ export class AppState {
     }
   }
   @action
-  private initBlogs (blogs: common.Blog[]) {
+  private initBlogs(blogs: common.Blog[]) {
     this.blogs = blogs
     this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
   }
@@ -60,15 +62,15 @@ export class AppState {
 @inject('appState')
 @observer
 class Home extends React.Component<RouteComponentProps<{}> & { appState: AppState }, {}> {
-  public static fetchData (appState: AppState) {
+  public static fetchData(appState: AppState) {
     return appState.fetchBlogs()
   }
-  componentWillMount () {
+  componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.appState.fetchBlogs()
     }
   }
-  render () {
+  render() {
     return (
       <div>
         <div className='router'>
@@ -87,11 +89,11 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
 @observer
 class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { appState: AppState }, {}> {
   private newPostContent = ''
-  public static fetchData (appState: AppState) {
+  public static fetchData(appState: AppState) {
     return appState.fetchBlogs()
   }
 
-  private get blog () {
+  private get blog() {
     const blogId = +this.props.match.params.blog_id
     for (const blog of this.props.appState.blogs) {
       if (blog.id === blogId) {
@@ -101,13 +103,14 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
     return null
   }
 
-  componentWillMount () {
+  // tslint:disable-next-line:no-identical-functions
+  componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.appState.fetchBlogs()
     }
   }
 
-  render () {
+  render() {
     if (!this.blog) {
       return null
     }
@@ -137,13 +140,13 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
     )
   }
 
-  private addNewPost () {
+  private addNewPost() {
     if (this.blog) {
       this.props.appState.addPost(this.blog.id, this.newPostContent)
     }
   }
 
-  private setNewPostContent (content: string) {
+  private setNewPostContent(content: string) {
     this.newPostContent = content
     this.setState({ newPostContent: this.newPostContent })
   }
@@ -152,11 +155,12 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
 @inject('appState')
 @observer
 class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: AppState }, {}> {
-  public static fetchData (appState: AppState) {
+  public static fetchData(appState: AppState) {
     return appState.fetchBlogs()
   }
 
-  private get blog () {
+  // tslint:disable-next-line:no-identical-functions
+  private get blog() {
     const blogId = +this.props.match.params.blog_id
     for (const blog of this.props.appState.blogs) {
       if (blog.id === blogId) {
@@ -165,7 +169,7 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
     }
     return null
   }
-  private get post () {
+  private get post() {
     const postId = +this.props.match.params.post_id
     if (this.blog) {
       for (const post of this.blog.posts) {
@@ -177,13 +181,14 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
     return null
   }
 
-  componentWillMount () {
+  // tslint:disable-next-line:no-identical-functions
+  componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.appState.fetchBlogs()
     }
   }
 
-  render () {
+  render() {
     if (!this.blog || !this.post) {
       return null
     }
@@ -220,7 +225,7 @@ export const routes: RouteProps[] = [
 ]
 
 export class Main extends React.Component<{}, {}> {
-  render () {
+  render() {
     return (
       <div>
         <a href='https://github.com/plantain-00/router-demo/tree/master/react/index.ts' target='_blank'>the source code of the demo</a>
