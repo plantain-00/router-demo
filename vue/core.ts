@@ -12,7 +12,7 @@ export class AppState extends Vue {
   blogs: common.Blog[] = []
   private maxPostId = 0
 
-  static create (data?: any) {
+  static create(data?: any) {
     const appState = new AppState()
     if (data) {
       appState.blogs = data.blogs
@@ -21,7 +21,7 @@ export class AppState extends Vue {
     return appState
   }
 
-  fetchBlogs () {
+  fetchBlogs() {
     if (this.blogs.length > 0) {
       return Promise.resolve()
     }
@@ -32,7 +32,7 @@ export class AppState extends Vue {
     }
     return Promise.resolve()
   }
-  addPost (blogId: number, postContent: string) {
+  addPost(blogId: number, postContent: string) {
     for (const blog of this.blogs) {
       if (blog.id === blogId) {
         this.maxPostId++
@@ -44,19 +44,19 @@ export class AppState extends Vue {
       }
     }
   }
-  private initBlogs (blogs: common.Blog[]) {
+  private initBlogs(blogs: common.Blog[]) {
     this.blogs = blogs
     this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
   }
 }
 
-export function createApp (appState: AppState) {
+export function createApp(appState: AppState) {
   const router = new VueRouter({
     mode: 'history',
     routes: [
-            { path: '/router-demo/vue/', component: Home, props: { appState } },
-            { path: '/router-demo/vue/blogs/:blog_id', component: Blog, props: { appState } },
-            { path: '/router-demo/vue/blogs/:blog_id/posts/:post_id', component: Post, props: { appState } }
+      { path: '/router-demo/vue/', component: Home, props: { appState } },
+      { path: '/router-demo/vue/blogs/:blog_id', component: Blog, props: { appState } },
+      { path: '/router-demo/vue/blogs/:blog_id/posts/:post_id', component: Post, props: { appState } }
     ]
   })
 
@@ -81,16 +81,16 @@ export function createApp (appState: AppState) {
 })
 class Home extends Vue {
   appState!: AppState
-  public static fetchData (appState: AppState) {
+  public static fetchData(appState: AppState) {
     return appState.fetchBlogs()
   }
-  get blogs () {
+  get blogs() {
     return this.appState.blogs
   }
-  jumpTo (url: string) {
+  jumpTo(url: string) {
     common.jumpTo(url, this.appState.$data)
   }
-  beforeMount () {
+  beforeMount() {
     if (!common.isFirstPage) {
       this.appState.fetchBlogs()
     }
@@ -121,11 +121,11 @@ class Home extends Vue {
 class Blog extends Vue {
   appState!: AppState
   newPostContent = ''
-  public static fetchData (appState: AppState) {
+  public static fetchData(appState: AppState) {
     return appState.fetchBlogs()
   }
 
-  get blog () {
+  get blog() {
     const blogId = +this.$route.params.blog_id
     const blogs: common.Blog[] = this.appState.blogs
     for (const blog of blogs) {
@@ -136,15 +136,16 @@ class Blog extends Vue {
     return null
   }
 
-  addNewPost () {
+  addNewPost() {
     if (this.blog) {
       this.appState.addPost(this.blog.id, this.newPostContent)
     }
   }
-  jumpTo (url: string) {
+  jumpTo(url: string) {
     common.jumpTo(url, this.appState.$data)
   }
-  beforeMount () {
+  // tslint:disable-next-line:no-identical-functions
+  beforeMount() {
     if (!common.isFirstPage) {
       this.appState.fetchBlogs()
     }
@@ -167,11 +168,12 @@ class Blog extends Vue {
 })
 class Post extends Vue {
   appState!: AppState
-  public static fetchData (appState: AppState) {
+  public static fetchData(appState: AppState) {
     return appState.fetchBlogs()
   }
 
-  get blog () {
+  // tslint:disable-next-line:no-identical-functions
+  get blog() {
     const blogId = +this.$route.params.blog_id
     const blogs: common.Blog[] = this.appState.blogs
     for (const blog of blogs) {
@@ -181,7 +183,7 @@ class Post extends Vue {
     }
     return null
   }
-  get post () {
+  get post() {
     const postId = +this.$route.params.post_id
     if (this.blog) {
       for (const post of this.blog.posts) {
@@ -192,10 +194,11 @@ class Post extends Vue {
     }
     return null
   }
-  jumpTo (url: string) {
+  jumpTo(url: string) {
     common.jumpTo(url, this.appState.$data)
   }
-  beforeMount () {
+  // tslint:disable-next-line:no-identical-functions
+  beforeMount() {
     if (!common.isFirstPage) {
       this.appState.fetchBlogs()
     }

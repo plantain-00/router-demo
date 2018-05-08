@@ -156,6 +156,7 @@ var Blog = /** @class */ (function (_super) {
     Blog.prototype.jumpTo = function (url) {
         common.jumpTo(url, this.appState.$data);
     };
+    // tslint:disable-next-line:no-identical-functions
     Blog.prototype.beforeMount = function () {
         if (!common.isFirstPage) {
             this.appState.fetchBlogs();
@@ -178,6 +179,7 @@ var Post = /** @class */ (function (_super) {
         return appState.fetchBlogs();
     };
     Object.defineProperty(Post.prototype, "blog", {
+        // tslint:disable-next-line:no-identical-functions
         get: function () {
             var blogId = +this.$route.params.blog_id;
             var blogs = this.appState.blogs;
@@ -231,6 +233,7 @@ var Post = /** @class */ (function (_super) {
     Post.prototype.jumpTo = function (url) {
         common.jumpTo(url, this.appState.$data);
     };
+    // tslint:disable-next-line:no-identical-functions
     Post.prototype.beforeMount = function () {
         if (!common.isFirstPage) {
             this.appState.fetchBlogs();

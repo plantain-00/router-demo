@@ -7,6 +7,7 @@ var mobx_1 = require("mobx");
 var mobx_react_1 = require("mobx-react");
 var common = tslib_1.__importStar(require("../common"));
 mobx_1.configure({ enforceActions: true });
+// tslint:disable:no-duplicate-string
 exports.methods = {};
 var isClientSide = true;
 function isServerSide() {
@@ -152,6 +153,7 @@ var Blog = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    // tslint:disable-next-line:no-identical-functions
     Blog.prototype.componentWillMount = function () {
         if (isClientSide && !common.isFirstPage) {
             this.props.appState.fetchBlogs();
@@ -204,6 +206,7 @@ var Post = /** @class */ (function (_super) {
         return appState.fetchBlogs();
     };
     Object.defineProperty(Post.prototype, "blog", {
+        // tslint:disable-next-line:no-identical-functions
         get: function () {
             var blogId = +this.props.match.params.blog_id;
             try {
@@ -253,6 +256,7 @@ var Post = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    // tslint:disable-next-line:no-identical-functions
     Post.prototype.componentWillMount = function () {
         if (isClientSide && !common.isFirstPage) {
             this.props.appState.fetchBlogs();
