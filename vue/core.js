@@ -37,9 +37,10 @@ var AppState = /** @class */ (function (_super) {
         return Promise.resolve();
     };
     AppState.prototype.addPost = function (blogId, postContent) {
+        var e_1, _a;
         try {
-            for (var _a = tslib_1.__values(this.blogs), _b = _a.next(); !_b.done; _b = _a.next()) {
-                var blog = _b.value;
+            for (var _b = tslib_1.__values(this.blogs), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var blog = _c.value;
                 if (blog.id === blogId) {
                     this.maxPostId++;
                     blog.posts.push({
@@ -53,21 +54,20 @@ var AppState = /** @class */ (function (_super) {
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
         finally {
             try {
-                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
             finally { if (e_1) throw e_1.error; }
         }
-        var e_1, _c;
     };
     AppState.prototype.initBlogs = function (blogs) {
         this.blogs = blogs;
         this.maxPostId = Math.max.apply(Math, tslib_1.__spread(blogs.map(function (b) { return Math.max.apply(Math, tslib_1.__spread(b.posts.map(function (p) { return p.id; }))); })));
     };
+    var AppState_1;
     AppState = AppState_1 = tslib_1.__decorate([
         vue_class_component_1.default
     ], AppState);
     return AppState;
-    var AppState_1;
 }(vue_1.default));
 exports.AppState = AppState;
 function createApp(appState) {
@@ -125,6 +125,7 @@ var Blog = /** @class */ (function (_super) {
     };
     Object.defineProperty(Blog.prototype, "blog", {
         get: function () {
+            var e_2, _a;
             var blogId = +this.$route.params.blog_id;
             var blogs = this.appState.blogs;
             try {
@@ -143,7 +144,6 @@ var Blog = /** @class */ (function (_super) {
                 finally { if (e_2) throw e_2.error; }
             }
             return null;
-            var e_2, _a;
         },
         enumerable: true,
         configurable: true
@@ -181,6 +181,7 @@ var Post = /** @class */ (function (_super) {
     Object.defineProperty(Post.prototype, "blog", {
         // tslint:disable-next-line:no-identical-functions
         get: function () {
+            var e_3, _a;
             var blogId = +this.$route.params.blog_id;
             var blogs = this.appState.blogs;
             try {
@@ -199,18 +200,18 @@ var Post = /** @class */ (function (_super) {
                 finally { if (e_3) throw e_3.error; }
             }
             return null;
-            var e_3, _a;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Post.prototype, "post", {
         get: function () {
+            var e_4, _a;
             var postId = +this.$route.params.post_id;
             if (this.blog) {
                 try {
-                    for (var _a = tslib_1.__values(this.blog.posts), _b = _a.next(); !_b.done; _b = _a.next()) {
-                        var post = _b.value;
+                    for (var _b = tslib_1.__values(this.blog.posts), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var post = _c.value;
                         if (post.id === postId) {
                             return post;
                         }
@@ -219,13 +220,12 @@ var Post = /** @class */ (function (_super) {
                 catch (e_4_1) { e_4 = { error: e_4_1 }; }
                 finally {
                     try {
-                        if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                     }
                     finally { if (e_4) throw e_4.error; }
                 }
             }
             return null;
-            var e_4, _c;
         },
         enumerable: true,
         configurable: true
