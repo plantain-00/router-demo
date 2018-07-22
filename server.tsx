@@ -55,11 +55,7 @@ server.get('/router-demo/react/*', async(req, res) => {
       res.status(404).end()
       return
     }
-    await Promise.all(matchedRouters.map(router => {
-      if ((router.component as any).fetchData) {
-        return (router.component as any).fetchData(appState)
-      }
-    }))
+    await Promise.all(matchedRouters.map(() => appState.fetchBlogs()))
     const html = ReactDOMServer.renderToString(
       <StaticRouter location={req.url} context={{}}>
         <Provider appState={appState}>
@@ -86,11 +82,7 @@ server.get('/router-demo/vue/*', (req, res) => {
         res.status(404).end()
         return
       }
-      await Promise.all(matchedComponents.map(Component => {
-        if ((Component as any).fetchData) {
-          return (Component as any).fetchData(appState)
-        }
-      }))
+      await Promise.all(matchedComponents.map(() => appState.fetchBlogs()))
       const html = await renderer.renderToString(app)
       const result = vueTemplate.replace(`<!--vue-ssr-outlet-->`, html)
         .replace(`<!--vue-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(appState.$data)}</script>`)

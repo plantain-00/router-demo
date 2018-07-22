@@ -81,9 +81,6 @@ export function createApp(appState: AppState) {
 })
 class Home extends Vue {
   appState!: AppState
-  public static fetchData(appState: AppState) {
-    return appState.fetchBlogs()
-  }
   get blogs() {
     return this.appState.blogs
   }
@@ -121,9 +118,6 @@ class Home extends Vue {
 class Blog extends Vue {
   appState!: AppState
   newPostContent = ''
-  public static fetchData(appState: AppState) {
-    return appState.fetchBlogs()
-  }
 
   get blog() {
     const blogId = +this.$route.params.blog_id
@@ -168,9 +162,6 @@ class Blog extends Vue {
 })
 class Post extends Vue {
   appState!: AppState
-  public static fetchData(appState: AppState) {
-    return appState.fetchBlogs()
-  }
 
   // tslint:disable-next-line:no-identical-functions
   get blog() {
