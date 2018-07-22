@@ -65,11 +65,7 @@ server.get('/router-demo/react/*', function (req, res) { return tslib_1.__awaite
                     res.status(404).end();
                     return [2 /*return*/];
                 }
-                return [4 /*yield*/, Promise.all(matchedRouters.map(function (router) {
-                        if (router.component.fetchData) {
-                            return router.component.fetchData(appState);
-                        }
-                    }))];
+                return [4 /*yield*/, Promise.all(matchedRouters.map(function () { return appState.fetchBlogs(); }))];
             case 2:
                 _a.sent();
                 html = ReactDOMServer.renderToString(React.createElement(react_router_dom_1.StaticRouter, { location: req.url, context: {} },
@@ -103,11 +99,7 @@ server.get('/router-demo/vue/*', function (req, res) {
                         res.status(404).end();
                         return [2 /*return*/];
                     }
-                    return [4 /*yield*/, Promise.all(matchedComponents.map(function (Component) {
-                            if (Component.fetchData) {
-                                return Component.fetchData(appState);
-                            }
-                        }))];
+                    return [4 /*yield*/, Promise.all(matchedComponents.map(function () { return appState.fetchBlogs(); }))];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, renderer.renderToString(app)];

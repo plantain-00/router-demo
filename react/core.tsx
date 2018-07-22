@@ -62,9 +62,6 @@ export class AppState {
 @inject('appState')
 @observer
 class Home extends React.Component<RouteComponentProps<{}> & { appState: AppState }, {}> {
-  public static fetchData(appState: AppState) {
-    return appState.fetchBlogs()
-  }
   componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.appState.fetchBlogs()
@@ -89,9 +86,6 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
 @observer
 class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { appState: AppState }, {}> {
   private newPostContent = ''
-  public static fetchData(appState: AppState) {
-    return appState.fetchBlogs()
-  }
 
   private get blog() {
     const blogId = +this.props.match.params.blog_id
@@ -155,10 +149,6 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
 @inject('appState')
 @observer
 class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: AppState }, {}> {
-  public static fetchData(appState: AppState) {
-    return appState.fetchBlogs()
-  }
-
   // tslint:disable-next-line:no-identical-functions
   private get blog() {
     const blogId = +this.props.match.params.blog_id

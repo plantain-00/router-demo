@@ -96,9 +96,6 @@ var Home = /** @class */ (function (_super) {
     function Home() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Home.fetchData = function (appState) {
-        return appState.fetchBlogs();
-    };
     Home.prototype.componentWillMount = function () {
         if (isClientSide && !common.isFirstPage) {
             this.props.appState.fetchBlogs();
@@ -126,9 +123,6 @@ var Blog = /** @class */ (function (_super) {
         _this.newPostContent = '';
         return _this;
     }
-    Blog.fetchData = function (appState) {
-        return appState.fetchBlogs();
-    };
     Object.defineProperty(Blog.prototype, "blog", {
         get: function () {
             var e_2, _a;
@@ -202,9 +196,6 @@ var Post = /** @class */ (function (_super) {
     function Post() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Post.fetchData = function (appState) {
-        return appState.fetchBlogs();
-    };
     Object.defineProperty(Post.prototype, "blog", {
         // tslint:disable-next-line:no-identical-functions
         get: function () {
