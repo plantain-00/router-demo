@@ -2,7 +2,8 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: {
     vue: './vue/index',
-    react: './react/index'
+    react: './react/index',
+    'rxjs-react': './rxjs-react/index'
   },
   output: {
     path: __dirname,

@@ -9,6 +9,11 @@ export type Blog = {
   posts: Post[];
 }
 
+export type AppState = {
+  blogs: Blog[]
+  maxPostId: number
+}
+
 export let isFirstPage = false
 
 const storeKey = 'router-demo:__INITIAL_STATE__'
@@ -18,7 +23,7 @@ export function jumpTo(url: string, state: any) {
   location.href = url
 }
 
-export function getInitialState() {
+export function getInitialState(): AppState | undefined {
   const storeString = localStorage.getItem(storeKey)
   if (storeString) {
     localStorage.removeItem(storeKey);

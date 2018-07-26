@@ -34,7 +34,8 @@ export class AppState {
     }
     if (methods.fetchBlogs) {
       return methods.fetchBlogs().then(blogs => {
-        this.initBlogs(blogs)
+        this.blogs = blogs
+        this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
       })
     }
     return Promise.resolve()
@@ -51,11 +52,6 @@ export class AppState {
         return
       }
     }
-  }
-  @action
-  private initBlogs(blogs: common.Blog[]) {
-    this.blogs = blogs
-    this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
   }
 }
 
