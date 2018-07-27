@@ -9,6 +9,9 @@ export type Blog = {
   posts: Post[];
 }
 
+/**
+ * @public
+ */
 export type AppState = {
   blogs: Blog[]
   maxPostId: number
