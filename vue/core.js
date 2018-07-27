@@ -31,7 +31,8 @@ var AppState = /** @class */ (function (_super) {
         }
         if (exports.methods.fetchBlogs) {
             return exports.methods.fetchBlogs().then(function (blogs) {
-                _this.initBlogs(blogs);
+                _this.blogs = blogs;
+                _this.maxPostId = Math.max.apply(Math, tslib_1.__spread(blogs.map(function (b) { return Math.max.apply(Math, tslib_1.__spread(b.posts.map(function (p) { return p.id; }))); })));
             });
         }
         return Promise.resolve();
@@ -58,10 +59,6 @@ var AppState = /** @class */ (function (_super) {
             }
             finally { if (e_1) throw e_1.error; }
         }
-    };
-    AppState.prototype.initBlogs = function (blogs) {
-        this.blogs = blogs;
-        this.maxPostId = Math.max.apply(Math, tslib_1.__spread(blogs.map(function (b) { return Math.max.apply(Math, tslib_1.__spread(b.posts.map(function (p) { return p.id; }))); })));
     };
     var AppState_1;
     AppState = AppState_1 = tslib_1.__decorate([
