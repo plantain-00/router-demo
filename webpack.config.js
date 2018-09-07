@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV === 'development'
+
 module.exports = {
   mode: process.env.NODE_ENV,
   entry: {
@@ -12,6 +14,12 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
-    }
-  }
+    },
+    extensions: isDev ? ['.ts', '.tsx', '.js'] : undefined
+  },
+  module: isDev ? {
+    rules: [
+      { test: /\.tsx?$/, loader: 'ts-loader' }
+    ]
+  } : undefined
 }

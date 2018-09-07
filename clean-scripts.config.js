@@ -44,7 +44,6 @@ module.exports = {
     less: `stylelint --fix ${lessFiles}`
   },
   watch: {
-    src: `${tscCommand} --watch`,
     webpack: `${webpackCommand} --watch`,
     rev: `${revStaticCommand} --watch`
   },
