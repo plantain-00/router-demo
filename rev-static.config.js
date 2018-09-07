@@ -6,6 +6,9 @@ module.exports = {
     'index.min.css',
     '**/index.ejs.html'
   ],
+  excludeFiles: [
+    'node_modules'
+  ],
   outputFiles: file => file.replace('.ejs', ''),
   ejsOptions: {
     rmWhitespace: true
