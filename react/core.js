@@ -149,7 +149,7 @@ var Blog = /** @class */ (function (_super) {
         if (!this.blog) {
             return null;
         }
-        var newPostContentButton = this.newPostContent ? React.createElement("button", { "v-if": 'newPostContent', onClick: function () { return _this.addNewPost(); } }, "add new post") : null;
+        var newPostContentButton = this.newPostContent ? React.createElement("button", { onClick: function () { return _this.addNewPost(); } }, "add new post") : null;
         var posts = this.blog.posts.map(function (post) {
             return (React.createElement("li", { key: post.id },
                 React.createElement(react_router_dom_1.Link, { to: '/router-demo/react/blogs/' + _this.blog.id + '/posts/' + post.id }, post.content)));
