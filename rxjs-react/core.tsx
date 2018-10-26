@@ -75,7 +75,7 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
     if (!this.blog) {
       return null
     }
-    const newPostContentButton = this.state.newPostContent ? <button v-if='newPostContent' onClick={() => this.addNewPost()}>add new post</button> : null
+    const newPostContentButton = this.state.newPostContent ? <button onClick={() => this.addNewPost()}>add new post</button> : null
     const posts = this.blog.posts.map(post => {
       return (
         <li key={post.id}>
