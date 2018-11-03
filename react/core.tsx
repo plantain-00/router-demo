@@ -217,7 +217,7 @@ export class Main extends React.Component<{}, {}> {
         <a href='https://github.com/plantain-00/router-demo/tree/master/react/index.ts' target='_blank'>the source code of the demo</a>
         <br />
         {routes.map(route => (
-          <Route key={route.path} {...route} />
+          <Route key={route.path as string} {...route} />
         ))}
       </div>
     )
