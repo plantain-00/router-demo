@@ -166,10 +166,7 @@ var Main = /** @class */ (function (_super) {
     };
     Main.prototype.fetchBlogs = function () {
         var _this = this;
-        if (this.state.appState.blogs.length > 0) {
-            return;
-        }
-        if (exports.methods.fetchBlogs) {
+        if (this.state.appState.blogs.length === 0 && exports.methods.fetchBlogs) {
             exports.methods.fetchBlogs().then(function (blogs) {
                 var nextState = immer_1.default(_this.state.appState, function (draftState) {
                     draftState.blogs = blogs;

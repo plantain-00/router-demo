@@ -30,10 +30,7 @@ var AppState = /** @class */ (function (_super) {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (this.blogs.length > 0) {
-                            return [2 /*return*/];
-                        }
-                        if (!exports.methods.fetchBlogs) return [3 /*break*/, 2];
+                        if (!(this.blogs.length === 0 && exports.methods.fetchBlogs)) return [3 /*break*/, 2];
                         return [4 /*yield*/, exports.methods.fetchBlogs()];
                     case 1:
                         blogs = _a.sent();

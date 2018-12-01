@@ -22,15 +22,11 @@ export class AppState extends Vue {
   }
 
   async fetchBlogs() {
-    if (this.blogs.length > 0) {
-      return
-    }
-    if (methods.fetchBlogs) {
+    if (this.blogs.length === 0 && methods.fetchBlogs) {
       const blogs = await methods.fetchBlogs()
       this.blogs = blogs
       this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
     }
-    return
   }
   addPost(blogId: number, postContent: string) {
     const blog = this.blogs.find((blog) => blog.id === blogId)

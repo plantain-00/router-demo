@@ -175,10 +175,7 @@ export class Main extends React.Component<{ appState: common.AppState }, { appSt
   }
 
   fetchBlogs() {
-    if (this.state.appState.blogs.length > 0) {
-      return
-    }
-    if (methods.fetchBlogs) {
+    if (this.state.appState.blogs.length === 0 && methods.fetchBlogs) {
       methods.fetchBlogs().then(blogs => {
         const nextState = produce(this.state.appState, (draftState) => {
           draftState.blogs = blogs
