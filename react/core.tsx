@@ -39,15 +39,13 @@ export class AppState {
 
   @action
   addPost(blogId: number, postContent: string) {
-    for (const blog of this.blogs) {
-      if (blog.id === blogId) {
-        this.maxPostId++
-        blog.posts.push({
-          id: this.maxPostId,
-          content: postContent
-        })
-        return
-      }
+    const blog = this.blogs.find((blog) => blog.id === blogId)
+    if (blog) {
+      this.maxPostId++
+      blog.posts.push({
+        id: this.maxPostId,
+        content: postContent
+      })
     }
   }
 }

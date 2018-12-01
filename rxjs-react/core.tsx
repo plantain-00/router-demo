@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Route, Link, RouteComponentProps } from 'react-router-dom'
 import { Subject, Subscription } from 'rxjs'
+import produce from 'immer'
+
 import * as common from '../common'
 
 // tslint:disable:no-duplicate-string
@@ -192,27 +194,28 @@ export class Main extends React.Component<{ appState: common.AppState }, { appSt
     }
     if (methods.fetchBlogs) {
       methods.fetchBlogs().then(blogs => {
+        const nextState = produce(this.state.appState, (draftState) => {
+          draftState.blogs = blogs
+          draftState.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
+        })
         this.setState({
-          appState: {
-            blogs,
-            maxPostId: Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
-          }
+          appState: nextState
         })
       })
     }
   }
 
   addPost(blogId: number, postContent: string) {
-    for (const blog of this.state.appState.blogs) {
-      if (blog.id === blogId) {
-        this.state.appState.maxPostId++
-        blog.posts.push({
-          id: this.state.appState.maxPostId,
+    const index = this.state.appState.blogs.findIndex((blog) => blog.id === blogId)
+    if (index >= 0) {
+      const nextState = produce(this.state.appState, (draftState) => {
+        draftState.maxPostId++
+        draftState.blogs[index].posts.push({
+          id: draftState.maxPostId,
           content: postContent
         })
-        this.setState({ appState: this.state.appState })
-        return
-      }
+      })
+      this.setState({ appState: nextState })
     }
   }
 

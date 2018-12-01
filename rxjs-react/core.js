@@ -4,6 +4,7 @@ var tslib_1 = require("tslib");
 var React = tslib_1.__importStar(require("react"));
 var react_router_dom_1 = require("react-router-dom");
 var rxjs_1 = require("rxjs");
+var immer_1 = tslib_1.__importDefault(require("immer"));
 var common = tslib_1.__importStar(require("../common"));
 // tslint:disable:no-duplicate-string
 exports.methods = {};
@@ -217,37 +218,27 @@ var Main = /** @class */ (function (_super) {
         }
         if (exports.methods.fetchBlogs) {
             exports.methods.fetchBlogs().then(function (blogs) {
+                var nextState = immer_1.default(_this.state.appState, function (draftState) {
+                    draftState.blogs = blogs;
+                    draftState.maxPostId = Math.max.apply(Math, tslib_1.__spread(blogs.map(function (b) { return Math.max.apply(Math, tslib_1.__spread(b.posts.map(function (p) { return p.id; }))); })));
+                });
                 _this.setState({
-                    appState: {
-                        blogs: blogs,
-                        maxPostId: Math.max.apply(Math, tslib_1.__spread(blogs.map(function (b) { return Math.max.apply(Math, tslib_1.__spread(b.posts.map(function (p) { return p.id; }))); })))
-                    }
+                    appState: nextState
                 });
             });
         }
     };
     Main.prototype.addPost = function (blogId, postContent) {
-        var e_4, _a;
-        try {
-            for (var _b = tslib_1.__values(this.state.appState.blogs), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var blog = _c.value;
-                if (blog.id === blogId) {
-                    this.state.appState.maxPostId++;
-                    blog.posts.push({
-                        id: this.state.appState.maxPostId,
-                        content: postContent
-                    });
-                    this.setState({ appState: this.state.appState });
-                    return;
-                }
-            }
-        }
-        catch (e_4_1) { e_4 = { error: e_4_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_4) throw e_4.error; }
+        var index = this.state.appState.blogs.findIndex(function (blog) { return blog.id === blogId; });
+        if (index >= 0) {
+            var nextState = immer_1.default(this.state.appState, function (draftState) {
+                draftState.maxPostId++;
+                draftState.blogs[index].posts.push({
+                    id: draftState.maxPostId,
+                    content: postContent
+                });
+            });
+            this.setState({ appState: nextState });
         }
     };
     Main.prototype.render = function () {

@@ -44,26 +44,13 @@ var AppState = /** @class */ (function () {
         });
     };
     AppState.prototype.addPost = function (blogId, postContent) {
-        var e_1, _a;
-        try {
-            for (var _b = tslib_1.__values(this.blogs), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var blog = _c.value;
-                if (blog.id === blogId) {
-                    this.maxPostId++;
-                    blog.posts.push({
-                        id: this.maxPostId,
-                        content: postContent
-                    });
-                    return;
-                }
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_1) throw e_1.error; }
+        var blog = this.blogs.find(function (blog) { return blog.id === blogId; });
+        if (blog) {
+            this.maxPostId++;
+            blog.posts.push({
+                id: this.maxPostId,
+                content: postContent
+            });
         }
     };
     tslib_1.__decorate([
@@ -123,7 +110,7 @@ var Blog = /** @class */ (function (_super) {
     }
     Object.defineProperty(Blog.prototype, "blog", {
         get: function () {
-            var e_2, _a;
+            var e_1, _a;
             var blogId = +this.props.match.params.blog_id;
             try {
                 for (var _b = tslib_1.__values(this.props.appState.blogs), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -133,12 +120,12 @@ var Blog = /** @class */ (function (_super) {
                     }
                 }
             }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
             finally {
                 try {
                     if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                 }
-                finally { if (e_2) throw e_2.error; }
+                finally { if (e_1) throw e_1.error; }
             }
             return null;
         },
@@ -197,7 +184,7 @@ var Post = /** @class */ (function (_super) {
     Object.defineProperty(Post.prototype, "blog", {
         // tslint:disable-next-line:no-identical-functions
         get: function () {
-            var e_3, _a;
+            var e_2, _a;
             var blogId = +this.props.match.params.blog_id;
             try {
                 for (var _b = tslib_1.__values(this.props.appState.blogs), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -207,12 +194,12 @@ var Post = /** @class */ (function (_super) {
                     }
                 }
             }
-            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
             finally {
                 try {
                     if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                 }
-                finally { if (e_3) throw e_3.error; }
+                finally { if (e_2) throw e_2.error; }
             }
             return null;
         },
@@ -221,7 +208,7 @@ var Post = /** @class */ (function (_super) {
     });
     Object.defineProperty(Post.prototype, "post", {
         get: function () {
-            var e_4, _a;
+            var e_3, _a;
             var postId = +this.props.match.params.post_id;
             if (this.blog) {
                 try {
@@ -232,12 +219,12 @@ var Post = /** @class */ (function (_super) {
                         }
                     }
                 }
-                catch (e_4_1) { e_4 = { error: e_4_1 }; }
+                catch (e_3_1) { e_3 = { error: e_3_1 }; }
                 finally {
                     try {
                         if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                     }
-                    finally { if (e_4) throw e_4.error; }
+                    finally { if (e_3) throw e_3.error; }
                 }
             }
             return null;
