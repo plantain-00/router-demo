@@ -27,10 +27,7 @@ export class AppState {
 
   @action
   async fetchBlogs() {
-    if (this.blogs.length > 0) {
-      return
-    }
-    if (methods.fetchBlogs) {
+    if (this.blogs.length === 0 && methods.fetchBlogs) {
       const blogs = await methods.fetchBlogs()
       this.blogs = blogs
       this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
