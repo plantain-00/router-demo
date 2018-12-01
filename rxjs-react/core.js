@@ -46,24 +46,8 @@ var Blog = /** @class */ (function (_super) {
     }
     Object.defineProperty(Blog.prototype, "blog", {
         get: function () {
-            var e_1, _a;
             var blogId = +this.props.match.params.blog_id;
-            try {
-                for (var _b = tslib_1.__values(this.props.appState.blogs), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var blog = _c.value;
-                    if (blog.id === blogId) {
-                        return blog;
-                    }
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-            return null;
+            return this.props.appState.blogs.find(function (blog) { return blog.id === blogId; });
         },
         enumerable: true,
         configurable: true
@@ -115,48 +99,17 @@ var Post = /** @class */ (function (_super) {
     Object.defineProperty(Post.prototype, "blog", {
         // tslint:disable-next-line:no-identical-functions
         get: function () {
-            var e_2, _a;
             var blogId = +this.props.match.params.blog_id;
-            try {
-                for (var _b = tslib_1.__values(this.props.appState.blogs), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var blog = _c.value;
-                    if (blog.id === blogId) {
-                        return blog;
-                    }
-                }
-            }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
-            return null;
+            return this.props.appState.blogs.find(function (blog) { return blog.id === blogId; });
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Post.prototype, "post", {
         get: function () {
-            var e_3, _a;
             var postId = +this.props.match.params.post_id;
             if (this.blog) {
-                try {
-                    for (var _b = tslib_1.__values(this.blog.posts), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var post = _c.value;
-                        if (post.id === postId) {
-                            return post;
-                        }
-                    }
-                }
-                catch (e_3_1) { e_3 = { error: e_3_1 }; }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                    }
-                    finally { if (e_3) throw e_3.error; }
-                }
+                return this.blog.posts.find(function (post) { return post.id === postId; });
             }
             return null;
         },
