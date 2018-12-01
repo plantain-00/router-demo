@@ -24,17 +24,25 @@ var AppState = /** @class */ (function () {
         }
     }
     AppState.prototype.fetchBlogs = function () {
-        var _this = this;
-        if (this.blogs.length > 0) {
-            return Promise.resolve();
-        }
-        if (exports.methods.fetchBlogs) {
-            return exports.methods.fetchBlogs().then(function (blogs) {
-                _this.blogs = blogs;
-                _this.maxPostId = Math.max.apply(Math, tslib_1.__spread(blogs.map(function (b) { return Math.max.apply(Math, tslib_1.__spread(b.posts.map(function (p) { return p.id; }))); })));
+        return tslib_1.__awaiter(this, void 0, void 0, function () {
+            var blogs;
+            return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.blogs.length > 0) {
+                            return [2 /*return*/];
+                        }
+                        if (!exports.methods.fetchBlogs) return [3 /*break*/, 2];
+                        return [4 /*yield*/, exports.methods.fetchBlogs()];
+                    case 1:
+                        blogs = _a.sent();
+                        this.blogs = blogs;
+                        this.maxPostId = Math.max.apply(Math, tslib_1.__spread(blogs.map(function (b) { return Math.max.apply(Math, tslib_1.__spread(b.posts.map(function (p) { return p.id; }))); })));
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
+                }
             });
-        }
-        return Promise.resolve();
+        });
     };
     AppState.prototype.addPost = function (blogId, postContent) {
         var e_1, _a;
@@ -71,7 +79,7 @@ var AppState = /** @class */ (function () {
         mobx_1.action,
         tslib_1.__metadata("design:type", Function),
         tslib_1.__metadata("design:paramtypes", []),
-        tslib_1.__metadata("design:returntype", void 0)
+        tslib_1.__metadata("design:returntype", Promise)
     ], AppState.prototype, "fetchBlogs", null);
     tslib_1.__decorate([
         mobx_1.action,

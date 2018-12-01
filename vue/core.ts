@@ -21,17 +21,16 @@ export class AppState extends Vue {
     return appState
   }
 
-  fetchBlogs() {
+  async fetchBlogs() {
     if (this.blogs.length > 0) {
-      return Promise.resolve()
+      return
     }
     if (methods.fetchBlogs) {
-      return methods.fetchBlogs().then(blogs => {
-        this.blogs = blogs
-        this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
-      })
+      const blogs = await methods.fetchBlogs()
+      this.blogs = blogs
+      this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
     }
-    return Promise.resolve()
+    return
   }
   addPost(blogId: number, postContent: string) {
     for (const blog of this.blogs) {
