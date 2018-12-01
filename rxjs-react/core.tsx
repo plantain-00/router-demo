@@ -58,12 +58,7 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
 
   private get blog() {
     const blogId = +this.props.match.params.blog_id
-    for (const blog of this.props.appState.blogs) {
-      if (blog.id === blogId) {
-        return blog
-      }
-    }
-    return null
+    return this.props.appState.blogs.find((blog) => blog.id === blogId)
   }
 
   // tslint:disable-next-line:no-identical-functions
@@ -118,21 +113,12 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
   // tslint:disable-next-line:no-identical-functions
   private get blog() {
     const blogId = +this.props.match.params.blog_id
-    for (const blog of this.props.appState.blogs) {
-      if (blog.id === blogId) {
-        return blog
-      }
-    }
-    return null
+    return this.props.appState.blogs.find((blog) => blog.id === blogId)
   }
   private get post() {
     const postId = +this.props.match.params.post_id
     if (this.blog) {
-      for (const post of this.blog.posts) {
-        if (post.id === postId) {
-          return post
-        }
-      }
+      return this.blog.posts.find((post) => post.id === postId)
     }
     return null
   }

@@ -115,13 +115,7 @@ class Blog extends Vue {
 
   get blog() {
     const blogId = +this.$route.params.blog_id
-    const blogs: common.Blog[] = this.appState.blogs
-    for (const blog of blogs) {
-      if (blog.id === blogId) {
-        return blog
-      }
-    }
-    return null
+    return this.appState.blogs.find((blog) => blog.id === blogId)
   }
 
   addNewPost() {
@@ -160,22 +154,12 @@ class Post extends Vue {
   // tslint:disable-next-line:no-identical-functions
   get blog() {
     const blogId = +this.$route.params.blog_id
-    const blogs: common.Blog[] = this.appState.blogs
-    for (const blog of blogs) {
-      if (blog.id === blogId) {
-        return blog
-      }
-    }
-    return null
+    return this.appState.blogs.find((blog) => blog.id === blogId)
   }
   get post() {
     const postId = +this.$route.params.post_id
     if (this.blog) {
-      for (const post of this.blog.posts) {
-        if (post.id === postId) {
-          return post
-        }
-      }
+      return this.blog.posts.find((post) => post.id === postId)
     }
     return null
   }
