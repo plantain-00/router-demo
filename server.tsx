@@ -8,11 +8,13 @@ import * as util from 'util'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
-import { Provider } from 'mobx-react'
+import { Provider, useStaticRendering } from 'mobx-react'
 
 import * as vueServerRenderer from 'vue-server-renderer'
 
 import * as common from './common'
+
+useStaticRendering(true)
 
 const readFileAsync = util.promisify(fs.readFile)
 
