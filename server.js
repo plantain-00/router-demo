@@ -12,6 +12,7 @@ var ReactDOMServer = tslib_1.__importStar(require("react-dom/server"));
 var react_router_dom_1 = require("react-router-dom");
 var mobx_react_1 = require("mobx-react");
 var vueServerRenderer = tslib_1.__importStar(require("vue-server-renderer"));
+mobx_react_1.useStaticRendering(true);
 var readFileAsync = util.promisify(fs.readFile);
 var server = express_1.default();
 core_1.isServerSide();

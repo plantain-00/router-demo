@@ -1,10 +1,8 @@
 import * as React from 'react'
 import { Route, Link, RouteComponentProps, RouteProps } from 'react-router-dom'
-import { observable, configure, action } from 'mobx'
+import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import * as common from '../common'
-
-configure({ enforceActions: true })
 
 // tslint:disable:no-duplicate-string
 
