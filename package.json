@@ -46,10 +46,10 @@
     "less": "3.9.0",
     "markdownlint-cli": "0.13.0",
     "no-unused-export": "1.7.0",
-    "postcss-cli": "6.1.0",
+    "postcss-cli": "6.1.1",
     "puppeteer": "1.11.0",
     "rev-static": "3.4.2",
-    "rimraf": "2.6.2",
+    "rimraf": "2.6.3",
     "standard": "12.0.1",
     "stylelint": "9.9.0",
     "stylelint-config-standard": "18.2.0",
@@ -60,11 +60,11 @@
     "type-coverage": "1.6.2",
     "typescript": "3.2.1",
     "webpack": "4.28.3",
-    "webpack-cli": "3.1.2"
+    "webpack-cli": "3.2.0"
   },
   "dependencies": {
     "express": "4.16.4",
-    "immer": "1.9.3",
+    "immer": "1.10.0",
     "mobx": "5.8.0",
     "mobx-react": "5.4.3",
     "react": "16.7.0",
