@@ -12,16 +12,60 @@ export function isServerSide() {
   isClientSide = false
 }
 
+class Blog {
+  constructor(blog: common.Blog) {
+    this.id = blog.id
+    this.content = blog.content
+    this.posts = blog.posts.map(p => new Post(p, this))
+  }
+  @observable id: number
+  @observable content: string
+  @observable posts: Post[]
+
+  toJS() {
+    return {
+      id: this.id,
+      content: this.content,
+      posts: this.posts.map((post) => post.toJS())
+    }
+  }
+}
+
+class Post {
+  constructor(post: common.Post, blog: Blog) {
+    this.id = post.id
+    this.content = post.content
+    this.blog = blog
+  }
+  @observable id: number
+  @observable content: string
+  @observable.ref public blog: Blog
+
+  toJS() {
+    return {
+      id: this.id,
+      content: this.content
+    }
+  }
+}
+
 export class AppState {
   @observable
-  blogs: common.Blog[] = []
+  blogs: Blog[] = []
   @observable
   private maxPostId = 0
 
   constructor(appState?: AppState) {
     if (appState) {
-      this.blogs = appState.blogs
+      this.blogs = observable.array(appState.blogs.map((blog) => new Blog(blog)))
       this.maxPostId = appState.maxPostId
+    }
+  }
+
+  toJS() {
+    return {
+      blogs: this.blogs.map((blog) => blog.toJS()),
+      maxPostId: this.maxPostId
     }
   }
 
@@ -29,7 +73,7 @@ export class AppState {
   async fetchBlogs() {
     if (this.blogs.length === 0 && methods.fetchBlogs) {
       const blogs = await methods.fetchBlogs()
-      this.blogs = blogs
+      this.blogs = observable.array(blogs.map((blog) => new Blog(blog)))
       this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
     }
   }
@@ -39,10 +83,10 @@ export class AppState {
     const blog = this.blogs.find((blog) => blog.id === blogId)
     if (blog) {
       this.maxPostId++
-      blog.posts.push({
+      blog.posts.push(new Post({
         id: this.maxPostId,
         content: postContent
-      })
+      }, blog))
     }
   }
 }
@@ -59,7 +103,7 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
     return (
       <div>
         <div className='router'>
-          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
+          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState.toJS())}>to vue app</a>
         </div>
         <div className='blogs-title'>blogs</div>
         <ul>
@@ -72,7 +116,7 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
 
 @inject('appState')
 @observer
-class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { appState: AppState }, {}> {
+class BlogComponent extends React.Component<RouteComponentProps<{ blog_id: string }> & { appState: AppState }, {}> {
   private newPostContent = ''
 
   private get blog() {
@@ -102,7 +146,7 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
     return (
       <div>
         <div className='router'>
-          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
+          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState.toJS())}>to vue app</a>
           <Link to='/router-demo/react/'>back to app</Link>
         </div>
         <div className='blog-title'>blog {this.blog.id}</div>
@@ -131,7 +175,7 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
 
 @inject('appState')
 @observer
-class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: AppState }, {}> {
+class PostComponent extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: AppState }, {}> {
   // tslint:disable-next-line:no-identical-functions
   private get blog() {
     const blogId = +this.props.match.params.blog_id
@@ -159,7 +203,7 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
     return (
       <div>
         <div className='router'>
-          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState)}>to vue app</a>
+          <a href='javascript:void(0)' onClick={() => common.jumpTo('/router-demo/vue/', this.props.appState.toJS())}>to vue app</a>
           <Link to='/router-demo/react/'>back to app</Link>
           <Link to={'/router-demo/react/blogs/' + this.blog.id}>back to blog</Link>
         </div>
@@ -178,12 +222,12 @@ export const routes: RouteProps[] = [
   },
   {
     path: '/router-demo/react/blogs/:blog_id',
-    component: Blog,
+    component: BlogComponent,
     exact: true
   },
   {
     path: '/router-demo/react/blogs/:blog_id/posts/:post_id',
-    component: Post,
+    component: PostComponent,
     exact: true
   }
 ]
