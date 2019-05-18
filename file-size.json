@@ -1,9 +1,9 @@
 {
   "indexMinCss": "321 B 145 B",
-  "reactIndexMinJs": "240 kB 71.6 kB",
+  "reactIndexMinJs": "240 kB 71.7 kB",
   "rxjsReactIndexMinJs": "223 kB 65.3 kB",
   "vueIndexMinJs": "139 kB 48.2 kB",
-  "reactIndexHtml": "516 B 383 B",
-  "rxjsReactIndexHtml": "521 B 387 B",
+  "reactIndexHtml": "516 B 385 B",
+  "rxjsReactIndexHtml": "521 B 388 B",
   "vueIndexHtml": "510 B 385 B"
 }
