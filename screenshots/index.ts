@@ -20,5 +20,5 @@ import { sleep } from 'clean-scripts'
     await page.screenshot({ path: `screenshots/${type}-blog-post.png` })
   }
 
-  browser.close()
+  await browser.close()
 })()

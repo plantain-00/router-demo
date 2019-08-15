@@ -1,9 +1,9 @@
-export type Post = {
+export interface Post {
   id: number;
   content: string;
 }
 
-export type Blog = {
+export interface Blog {
   id: number;
   content: string;
   posts: Post[];
@@ -12,7 +12,7 @@ export type Blog = {
 /**
  * @public
  */
-export type AppState = {
+export interface AppState {
   blogs: Blog[]
   maxPostId: number
 }

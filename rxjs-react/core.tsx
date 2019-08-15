@@ -5,8 +5,6 @@ import produce from 'immer'
 
 import * as common from '../common'
 
-// tslint:disable:no-duplicate-string
-
 export const methods: { fetchBlogs?: () => Promise<common.Blog[]> } = {}
 let isClientSide = true
 export function isServerSide() {
@@ -61,7 +59,6 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
     return this.props.appState.blogs.find((blog) => blog.id === blogId)
   }
 
-  // tslint:disable-next-line:no-identical-functions
   componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.subject.next({ type: 'fetch blogs' })
@@ -110,7 +107,6 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
 }
 
 class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: common.AppState, subject: Subject<Command> }, {}> {
-  // tslint:disable-next-line:no-identical-functions
   private get blog() {
     const blogId = +this.props.match.params.blog_id
     return this.props.appState.blogs.find((blog) => blog.id === blogId)
@@ -123,7 +119,6 @@ class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_i
     return null
   }
 
-  // tslint:disable-next-line:no-identical-functions
   componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.subject.next({ type: 'fetch blogs' })

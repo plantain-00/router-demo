@@ -4,8 +4,6 @@ import { observable, action } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import * as common from '../common'
 
-// tslint:disable:no-duplicate-string
-
 export const methods: { fetchBlogs?: () => Promise<common.Blog[]> } = {}
 let isClientSide = true
 export function isServerSide() {
@@ -124,7 +122,6 @@ class BlogComponent extends React.Component<RouteComponentProps<{ blog_id: strin
     return this.props.appState.blogs.find((blog) => blog.id === blogId)
   }
 
-  // tslint:disable-next-line:no-identical-functions
   componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.appState.fetchBlogs()
@@ -176,7 +173,6 @@ class BlogComponent extends React.Component<RouteComponentProps<{ blog_id: strin
 @inject('appState')
 @observer
 class PostComponent extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: AppState }, {}> {
-  // tslint:disable-next-line:no-identical-functions
   private get blog() {
     const blogId = +this.props.match.params.blog_id
     return this.props.appState.blogs.find((blog) => blog.id === blogId)
@@ -189,7 +185,6 @@ class PostComponent extends React.Component<RouteComponentProps<{ blog_id: strin
     return null
   }
 
-  // tslint:disable-next-line:no-identical-functions
   componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.appState.fetchBlogs()

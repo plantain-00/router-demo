@@ -6,7 +6,6 @@ var react_router_dom_1 = require("react-router-dom");
 var rxjs_1 = require("rxjs");
 var immer_1 = tslib_1.__importDefault(require("immer"));
 var common = tslib_1.__importStar(require("../common"));
-// tslint:disable:no-duplicate-string
 exports.methods = {};
 var isClientSide = true;
 function isServerSide() {
@@ -52,7 +51,6 @@ var Blog = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    // tslint:disable-next-line:no-identical-functions
     Blog.prototype.componentWillMount = function () {
         if (isClientSide && !common.isFirstPage) {
             this.props.subject.next({ type: 'fetch blogs' });
@@ -97,7 +95,6 @@ var Post = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Object.defineProperty(Post.prototype, "blog", {
-        // tslint:disable-next-line:no-identical-functions
         get: function () {
             var blogId = +this.props.match.params.blog_id;
             return this.props.appState.blogs.find(function (blog) { return blog.id === blogId; });
@@ -116,7 +113,6 @@ var Post = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    // tslint:disable-next-line:no-identical-functions
     Post.prototype.componentWillMount = function () {
         if (isClientSide && !common.isFirstPage) {
             this.props.subject.next({ type: 'fetch blogs' });
