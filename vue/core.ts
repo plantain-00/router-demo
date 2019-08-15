@@ -122,7 +122,6 @@ class Blog extends Vue {
   jumpTo(url: string) {
     common.jumpTo(url, this.appState.$data)
   }
-  // tslint:disable-next-line:no-identical-functions
   beforeMount() {
     if (!common.isFirstPage) {
       this.appState.fetchBlogs()
@@ -147,7 +146,6 @@ class Blog extends Vue {
 class Post extends Vue {
   appState!: AppState
 
-  // tslint:disable-next-line:no-identical-functions
   get blog() {
     const blogId = +this.$route.params.blog_id
     return this.appState.blogs.find((blog) => blog.id === blogId)
@@ -162,7 +160,6 @@ class Post extends Vue {
   jumpTo(url: string) {
     common.jumpTo(url, this.appState.$data)
   }
-  // tslint:disable-next-line:no-identical-functions
   beforeMount() {
     if (!common.isFirstPage) {
       this.appState.fetchBlogs()
