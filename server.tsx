@@ -35,12 +35,12 @@ server.get('/router-demo/blogs.json', async(req, res) => {
 })
 
 server.get('/router-demo/:name.css', async(req, res) => {
-  const buffer = await readFileAsync(`./${req.params.name}.css`)
+  const buffer = await readFileAsync(`./${(req.params as { [key: string]: string }).name}.css`)
   res.end(buffer.toString())
 })
 
 server.get('/router-demo/:type/:name.js', async(req, res) => {
-  const buffer = await readFileAsync(`./${req.params.type}/${req.params.name}.js`)
+  const buffer = await readFileAsync(`./${(req.params as { [key: string]: string }).type}/${(req.params as { [key: string]: string }).name}.js`)
   res.end(buffer.toString())
 })
 
