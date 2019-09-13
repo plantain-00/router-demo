@@ -9,7 +9,7 @@
 ## online demo
 
 + SPA: <https://plantain-00.github.io/router-demo/vue/> <https://plantain-00.github.io/router-demo/react/>
-+ SSR: <https://router-demo.yorkyao.xyz/router-demo/vue/> <https://router-demo.yorkyao.xyz/router-demo/react/>
++ SSR: <http://106.15.39.164:9000/router-demo/vue/> <http://106.15.39.164:9000/router-demo/react/>
 
 ## start server
 
