@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Main = exports.routes = exports.AppState = exports.isServerSide = exports.methods = void 0;
 var tslib_1 = require("tslib");
 var React = tslib_1.__importStar(require("react"));
 var react_router_dom_1 = require("react-router-dom");
@@ -169,7 +170,7 @@ var BlogComponent = /** @class */ (function (_super) {
             var blogId = +this.props.match.params.blog_id;
             return this.props.appState.blogs.find(function (blog) { return blog.id === blogId; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     BlogComponent.prototype.componentWillMount = function () {
@@ -225,7 +226,7 @@ var PostComponent = /** @class */ (function (_super) {
             var blogId = +this.props.match.params.blog_id;
             return this.props.appState.blogs.find(function (blog) { return blog.id === blogId; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(PostComponent.prototype, "post", {
@@ -236,7 +237,7 @@ var PostComponent = /** @class */ (function (_super) {
             }
             return null;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     PostComponent.prototype.componentWillMount = function () {

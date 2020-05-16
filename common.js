@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getInitialState = exports.jumpTo = exports.isFirstPage = void 0;
 exports.isFirstPage = false;
 var storeKey = 'router-demo:__INITIAL_STATE__';
 function jumpTo(url, state) {

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createApp = exports.AppState = exports.methods = void 0;
 var tslib_1 = require("tslib");
 var vue_1 = tslib_1.__importDefault(require("vue"));
 var vue_class_component_1 = tslib_1.__importDefault(require("vue-class-component"));
@@ -80,7 +81,7 @@ var Home = /** @class */ (function (_super) {
         get: function () {
             return this.appState.blogs;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Home.prototype.jumpTo = function (url) {
@@ -111,7 +112,7 @@ var Blog = /** @class */ (function (_super) {
             var blogId = +this.$route.params.blog_id;
             return this.appState.blogs.find(function (blog) { return blog.id === blogId; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Blog.prototype.addNewPost = function () {
@@ -145,7 +146,7 @@ var Post = /** @class */ (function (_super) {
             var blogId = +this.$route.params.blog_id;
             return this.appState.blogs.find(function (blog) { return blog.id === blogId; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Post.prototype, "post", {
@@ -156,7 +157,7 @@ var Post = /** @class */ (function (_super) {
             }
             return null;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Post.prototype.jumpTo = function (url) {
