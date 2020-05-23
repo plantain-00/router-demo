@@ -91,7 +91,7 @@ export class AppState {
 
 @inject('appState')
 @observer
-class Home extends React.Component<RouteComponentProps<{}> & { appState: AppState }, {}> {
+class Home extends React.Component<RouteComponentProps<Record<string, string>> & { appState: AppState }, unknown> {
   componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.appState.fetchBlogs()
@@ -114,7 +114,7 @@ class Home extends React.Component<RouteComponentProps<{}> & { appState: AppStat
 
 @inject('appState')
 @observer
-class BlogComponent extends React.Component<RouteComponentProps<{ blog_id: string }> & { appState: AppState }, {}> {
+class BlogComponent extends React.Component<RouteComponentProps<{ blog_id: string }> & { appState: AppState }, unknown> {
   private newPostContent = ''
 
   private get blog() {
@@ -172,7 +172,7 @@ class BlogComponent extends React.Component<RouteComponentProps<{ blog_id: strin
 
 @inject('appState')
 @observer
-class PostComponent extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: AppState }, {}> {
+class PostComponent extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: AppState }, unknown> {
   private get blog() {
     const blogId = +this.props.match.params.blog_id
     return this.props.appState.blogs.find((blog) => blog.id === blogId)
@@ -227,7 +227,7 @@ export const routes: RouteProps[] = [
   }
 ]
 
-export class Main extends React.Component<{}, {}> {
+export class Main extends React.Component<unknown, unknown> {
   render() {
     return (
       <div>
