@@ -1,6 +1,6 @@
-const isDev = process.env.NODE_ENV === 'development'
+import * as webpack from 'webpack'
 
-module.exports = {
+export default {
   mode: process.env.NODE_ENV,
   entry: {
     vue: './vue/index',
@@ -15,11 +15,11 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.esm.js'
     },
-    extensions: isDev ? ['.ts', '.tsx', '.js'] : undefined
+    extensions: ['.ts', '.tsx', '.js']
   },
-  module: isDev ? {
+  module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' }
     ]
-  } : undefined
-}
+  }
+} as webpack.Configuration
