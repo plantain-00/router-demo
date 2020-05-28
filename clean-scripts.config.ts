@@ -1,21 +1,17 @@
-const { Service } = require('clean-scripts')
-
-const tsFiles = `"*.ts" "*.tsx" "vue/**/*.ts" "react/**/*.tsx" "spec/**/*.ts" "screenshots/**/*.ts"`
-const jsFiles = `"*.config.js" "spec/**/*.config.js"`
+const tsFiles = `"*.ts" "*.tsx" "vue/**/*.ts" "react/**/*.tsx"`
+const jsFiles = `"*.config.js"`
 const lessFiles = `"*.less"`
 
-const tscCommand = `tsc`
-const webpackCommand = `webpack`
+const webpackCommand = `webpack --config webpack.config.ts`
 const revStaticCommand = `rev-static`
 
 const isDev = process.env.NODE_ENV === 'development'
 
-module.exports = {
+export default {
   build: [
     `rimraf "**/@(index.min-*.js|index.min-*.css)"`,
     {
       js: [
-        tscCommand,
         webpackCommand
       ],
       css: isDev ? undefined : [
@@ -34,10 +30,7 @@ module.exports = {
     markdown: `markdownlint README.md`,
     typeCoverage: 'type-coverage -p .'
   },
-  test: [
-    'tsc -p spec',
-    'karma start spec/karma.config.js'
-  ],
+  test: [],
   fix: {
     ts: `eslint --ext .js,.ts,.tsx ${tsFiles} ${jsFiles} --fix`,
     less: `stylelint --fix ${lessFiles}`
@@ -45,10 +38,5 @@ module.exports = {
   watch: {
     webpack: `${webpackCommand} --watch`,
     rev: `${revStaticCommand} --watch`
-  },
-  screenshot: [
-    new Service(`http-server '..' -p 8000`),
-    `tsc -p screenshots`,
-    `node screenshots/index.js`
-  ]
+  }
 }
