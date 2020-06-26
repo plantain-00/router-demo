@@ -1,5 +1,4 @@
 const tsFiles = `"*.ts" "*.tsx" "vue/**/*.ts" "react/**/*.tsx"`
-const jsFiles = `"*.config.js"`
 const lessFiles = `"*.less"`
 
 const webpackCommand = `webpack --config webpack.config.ts`
@@ -23,16 +22,15 @@ export default {
     revStaticCommand
   ],
   lint: {
-    ts: `eslint --ext .js,.ts,.tsx ${tsFiles} ${jsFiles}`,
+    ts: `eslint --ext .js,.ts,.tsx ${tsFiles}`,
     less: `stylelint ${lessFiles}`,
     export: `no-unused-export ${tsFiles} ${lessFiles}`,
-    commit: `commitlint --from=HEAD~1`,
     markdown: `markdownlint README.md`,
     typeCoverage: 'type-coverage -p .'
   },
   test: [],
   fix: {
-    ts: `eslint --ext .js,.ts,.tsx ${tsFiles} ${jsFiles} --fix`,
+    ts: `eslint --ext .js,.ts,.tsx ${tsFiles} --fix`,
     less: `stylelint --fix ${lessFiles}`
   },
   watch: {
