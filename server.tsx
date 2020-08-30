@@ -67,7 +67,7 @@ server.get('/router-demo/react/*', async(req, res) => {
     const result = reactTemplate.replace(`<!--react-ssr-outlet-->`, html)
       .replace(`<!--react-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(appState)}</script>`)
     res.end(result)
-  } catch (error) {
+  } catch (error: unknown) {
     console.log(error)
     res.status(500).end()
   }
@@ -89,7 +89,7 @@ server.get('/router-demo/vue/*', (req, res) => {
       const result = vueTemplate.replace(`<!--vue-ssr-outlet-->`, html)
         .replace(`<!--vue-ssr-state-->`, `<script>window.__INITIAL_STATE__=${JSON.stringify(appState.$data)}</script>`)
       res.end(result)
-    } catch (error) {
+    } catch (error: unknown) {
       console.log(error)
       res.status(500).end()
     }
