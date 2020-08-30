@@ -20,7 +20,7 @@
     "url": "https://github.com/plantain-00/router-demo/issues"
   },
   "typeCoverage": {
-    "atLeast": 98.69
+    "atLeast": 99.1
   },
   "homepage": "https://github.com/plantain-00/router-demo#readme",
   "devDependencies": {
