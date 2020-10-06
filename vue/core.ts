@@ -1,33 +1,19 @@
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import VueRouter from 'vue-router'
+import { defineComponent, createApp, PropType, reactive, createSSRApp } from 'vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import * as common from '../common'
-
-Vue.use(VueRouter)
 
 export const methods: { fetchBlogs?: () => Promise<common.Blog[]> } = {}
 
-@Component
-export class AppState extends Vue {
-  blogs: common.Blog[] = []
-  private maxPostId = 0
-
-  static create(data?: any) {
-    const appState = new AppState()
-    if (data) {
-      appState.blogs = data.blogs
-      appState.maxPostId = data.maxPostId
-    }
-    return appState
-  }
-
+export const AppState = reactive({
+  blogs: [] as common.Blog[],
+  maxPostId: 0,
   async fetchBlogs() {
     if (this.blogs.length === 0 && methods.fetchBlogs) {
       const blogs = await methods.fetchBlogs()
       this.blogs = blogs
       this.maxPostId = Math.max(...blogs.map(b => Math.max(...b.posts.map(p => p.id))))
     }
-  }
+  },
   addPost(blogId: number, postContent: string) {
     const blog = this.blogs.find((blog) => blog.id === blogId)
     if (blog) {
@@ -37,12 +23,12 @@ export class AppState extends Vue {
         content: postContent
       })
     }
-  }
-}
+  },
+})
 
-export function createApp(appState: AppState) {
-  const router = new VueRouter({
-    mode: 'history',
+export function createAppWithRoutes(appState: typeof AppState, isSSR: boolean) {
+  const router = createRouter({
+    history: createWebHashHistory(),
     routes: [
       { path: '/router-demo/vue/', component: Home, props: { appState } },
       { path: '/router-demo/vue/blogs/:blog_id', component: Blog, props: { appState } },
@@ -50,10 +36,12 @@ export function createApp(appState: AppState) {
     ]
   })
 
-  return new App({ router })
+  const app = (isSSR ? createSSRApp : createApp)(App)
+  app.use(router)
+  return { app, router }
 }
 
-@Component({
+const Home = defineComponent({
   template: `
     <div>
         <div class="router">
@@ -67,24 +55,30 @@ export function createApp(appState: AppState) {
         </ul>
     </div>
     `,
-  props: ['appState']
-})
-class Home extends Vue {
-  appState!: AppState
-  get blogs() {
-    return this.appState.blogs
-  }
-  jumpTo(url: string) {
-    common.jumpTo(url, this.appState.$data)
-  }
+  props: {
+    appState: {
+      type: {} as PropType<typeof AppState>,
+      required: true,
+    }
+  },
+  computed: {
+    blogs(): common.Blog[] {
+      return this.appState.blogs
+    }
+  },
+  methods: {
+    jumpTo(url: string) {
+      common.jumpTo(url, this.appState)
+    }
+  },
   beforeMount() {
     if (!common.isFirstPage) {
       this.appState.fetchBlogs()
     }
   }
-}
+})
 
-@Component({
+const Blog = defineComponent({
   template: `
     <div>
         <div class="router">
@@ -103,33 +97,41 @@ class Home extends Vue {
         <button v-if="newPostContent" @click="addNewPost()">add new post</button>
     </div>
     `,
-  props: ['appState']
-})
-class Blog extends Vue {
-  appState!: AppState
-  newPostContent = ''
-
-  get blog() {
-    const blogId = +this.$route.params.blog_id
-    return this.appState.blogs.find((blog) => blog.id === blogId)
-  }
-
-  addNewPost() {
-    if (this.blog) {
-      this.appState.addPost(this.blog.id, this.newPostContent)
+  props: {
+    appState: {
+      type: {} as PropType<typeof AppState>,
+      required: true,
     }
-  }
-  jumpTo(url: string) {
-    common.jumpTo(url, this.appState.$data)
-  }
+  },
+  data: () => {
+    return {
+      newPostContent: ''
+    }
+  },
+  computed: {
+    blog(): common.Blog | undefined {
+      const blogId = +this.$route.params.blog_id
+      return this.appState.blogs.find((blog) => blog.id === blogId)
+    }
+  },
+  methods: {
+    addNewPost() {
+      if (this.blog) {
+        this.appState.addPost(this.blog.id, this.newPostContent)
+      }
+    },
+    jumpTo(url: string) {
+      common.jumpTo(url, this.appState)
+    },
+  },
   beforeMount() {
     if (!common.isFirstPage) {
       this.appState.fetchBlogs()
     }
   }
-}
+})
 
-@Component({
+const Post = defineComponent({
   template: `
     <div>
         <div class="router">
@@ -141,33 +143,38 @@ class Blog extends Vue {
         <div class="post-content">{{post.content}}</div>
     </div>
     `,
-  props: ['appState']
-})
-class Post extends Vue {
-  appState!: AppState
-
-  get blog() {
-    const blogId = +this.$route.params.blog_id
-    return this.appState.blogs.find((blog) => blog.id === blogId)
-  }
-  get post() {
-    const postId = +this.$route.params.post_id
-    if (this.blog) {
-      return this.blog.posts.find((post) => post.id === postId)
+  props: {
+    appState: {
+      type: {} as PropType<typeof AppState>,
+      required: true,
     }
-    return null
-  }
-  jumpTo(url: string) {
-    common.jumpTo(url, this.appState.$data)
-  }
+  },
+  computed: {
+    blog(): common.Blog | undefined {
+      const blogId = +this.$route.params.blog_id
+      return this.appState.blogs.find((blog) => blog.id === blogId)
+    },
+    post(): common.Post | undefined {
+      const postId = +this.$route.params.post_id
+      if (this.blog) {
+        return this.blog.posts.find((post) => post.id === postId)
+      }
+      return undefined
+    }
+  },
+  methods: {
+    jumpTo(url: string) {
+      common.jumpTo(url, this.appState)
+    }
+  },
   beforeMount() {
     if (!common.isFirstPage) {
       this.appState.fetchBlogs()
     }
   }
-}
+})
 
-@Component({
+const App = defineComponent({
   template: `
     <div>
         <a href="https://github.com/plantain-00/router-demo/tree/master/vue/index.ts" target="_blank">the source code of the demo</a>
@@ -176,5 +183,4 @@ class Post extends Vue {
     </div>
     `
 })
-class App extends Vue {
-}
+
