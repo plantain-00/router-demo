@@ -25,16 +25,16 @@
   "homepage": "https://github.com/plantain-00/router-demo#readme",
   "devDependencies": {
     "@types/express": "4.17.12",
-    "@types/react": "17.0.8",
-    "@types/react-dom": "17.0.5",
+    "@types/react": "17.0.9",
+    "@types/react-dom": "17.0.6",
     "@types/react-router-dom": "5.1.7",
     "@types/webpack": "5.28.0",
-    "@typescript-eslint/eslint-plugin": "4.25.0",
-    "@typescript-eslint/parser": "4.25.0",
+    "@typescript-eslint/eslint-plugin": "4.26.0",
+    "@typescript-eslint/parser": "4.26.0",
     "clean-css-cli": "5.3.0",
     "clean-scripts": "1.20.1",
     "cross-env": "7.0.3",
-    "eslint": "7.27.0",
+    "eslint": "7.28.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-plantain": "1.1.0",
     "http-server": "0.12.3",
@@ -65,9 +65,9 @@
     "react-router-dom": "5.2.0",
     "rxjs": "7.1.0",
     "tslib": "2.2.0",
-    "vue": "2.6.12",
+    "vue": "2.6.13",
     "vue-class-component": "7.2.6",
     "vue-router": "3.5.1",
-    "vue-server-renderer": "2.6.12"
+    "vue-server-renderer": "2.6.13"
   }
 }
