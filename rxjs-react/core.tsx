@@ -21,7 +21,7 @@ type Command =
     postContent: string
   }
 
-class Home extends React.Component<RouteComponentProps<{}> & { appState: common.AppState, subject: Subject<Command> }, {}> {
+class Home extends React.Component<RouteComponentProps & { appState: common.AppState, subject: Subject<Command> }, unknown> {
   componentWillMount() {
     if (isClientSide && !common.isFirstPage) {
       this.props.subject.next({ type: 'fetch blogs' })
@@ -106,7 +106,7 @@ class Blog extends React.Component<RouteComponentProps<{ blog_id: string }> & { 
   }
 }
 
-class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: common.AppState, subject: Subject<Command> }, {}> {
+class Post extends React.Component<RouteComponentProps<{ blog_id: string, post_id: string }> & { appState: common.AppState, subject: Subject<Command> }, unknown> {
   private get blog() {
     const blogId = +this.props.match.params.blog_id
     return this.props.appState.blogs.find((blog) => blog.id === blogId)
@@ -188,7 +188,7 @@ export class Main extends React.Component<{ appState: common.AppState }, { appSt
     if (index >= 0) {
       const nextState = produce(this.state.appState, (draftState) => {
         draftState.maxPostId++
-        draftState.blogs[index].posts.push({
+        draftState.blogs[index]!.posts.push({
           id: draftState.maxPostId,
           content: postContent
         })
