@@ -110,7 +110,7 @@ class Blog extends Vue {
   newPostContent = ''
 
   get blog() {
-    const blogId = +this.$route.params.blog_id
+    const blogId = +this.$route.params.blog_id!
     return this.appState.blogs.find((blog) => blog.id === blogId)
   }
 
@@ -147,11 +147,11 @@ class Post extends Vue {
   appState!: AppState
 
   get blog() {
-    const blogId = +this.$route.params.blog_id
+    const blogId = +this.$route.params.blog_id!
     return this.appState.blogs.find((blog) => blog.id === blogId)
   }
   get post() {
-    const postId = +this.$route.params.post_id
+    const postId = +this.$route.params.post_id!
     if (this.blog) {
       return this.blog.posts.find((post) => post.id === postId)
     }
